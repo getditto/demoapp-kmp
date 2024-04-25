@@ -48,3 +48,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
+tasks {
+    // Dummy testClasses task to resolve error:
+    // > Cannot locate tasks that match ':shared:testClasses' as task 'testClasses' not found in project ':shared'.
+    val testClasses by creating
+}
