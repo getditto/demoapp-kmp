@@ -29,10 +29,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.ditto)
+            api(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        androidMain.dependencies {
+            implementation(libs.ditto)
         }
     }
 }

@@ -1,21 +1,24 @@
 [versions]
 agp = "8.4.0-rc02"
-ditto = "4.7.1-rc.3"
-kotlin = "1.9.20"
+androidx-activityCompose = "1.9.0"
 compose = "1.6.6"
+ditto = "4.7.1-rc.3"
 compose-compiler = "1.5.4"
 compose-material3 = "1.2.1"
-androidx-activityCompose = "1.9.0"
+koin = "3.1.4"
+kotlin = "1.9.20"
 
 [libraries]
-ditto = { module = "live.ditto:ditto", version.ref = "ditto" }
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+ditto = { module = "live.ditto:ditto", version.ref = "ditto" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
