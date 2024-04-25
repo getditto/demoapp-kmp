@@ -25,6 +25,9 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
+        pod("DittoObjC") {
+            version = "4.7.1-rc.2"
+        }
     }
 
     sourceSets {
