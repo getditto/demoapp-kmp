@@ -29,7 +29,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(libs.ditto)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
