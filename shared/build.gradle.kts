@@ -12,7 +12,6 @@ kotlin {
             }
         }
     }
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
@@ -27,7 +26,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             //put your multiplatform dependencies here
