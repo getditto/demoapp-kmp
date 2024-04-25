@@ -4,6 +4,7 @@
 .externalNativeBuild
 .gradle
 .idea
+Pods/
 build
 captures
 local.properties
