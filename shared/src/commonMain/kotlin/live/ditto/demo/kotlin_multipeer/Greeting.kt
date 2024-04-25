@@ -5,6 +5,6 @@ class Greeting {
     private val dittoManager: DittoManager = getDittoManager()
 
     fun greet(): String {
-        return "Hello, ${platform.name}! - Ditto version ${dittoManager.version}"
+        return "Hello, ${platform.name}! \nDitto ${dittoManager.version}"
     }
 }

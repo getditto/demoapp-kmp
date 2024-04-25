@@ -8,7 +8,10 @@ class AndroidDittoManager : DittoManager {
     private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
     val ditto: Ditto = Ditto(dependencies)
 
-    override val version: String = ditto.sdkVersion
+    override val version: String = """
+        VERSION: ${Ditto.VERSION}
+        sdkVersion: ${ditto.sdkVersion}
+    """.trimIndent()
 }
 
 actual fun getDittoManager(): DittoManager = AndroidDittoManager()
