@@ -1,0 +1,11 @@
+*.iml
+.DS_Store
+.cxx
+.externalNativeBuild
+.gradle
+.idea
+build
+captures
+local.properties
+xcuserdata
+xcuserdata*.iml
