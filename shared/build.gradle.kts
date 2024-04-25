@@ -36,6 +36,7 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.ditto)
+            implementation(libs.koin.android)
         }
     }
 }

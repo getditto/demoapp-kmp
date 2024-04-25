@@ -2,9 +2,9 @@ package live.ditto.demo.kotlin_multipeer
 
 class Greeting {
     private val platform: Platform = getPlatform()
-    private val ditto: Ditto = getDitto()
+    private val dittoManager: DittoManager = getDittoManager()
 
     fun greet(): String {
-        return "Hello, ${platform.name}! - ${ditto.name}"
+        return "Hello, ${platform.name}! - Ditto version ${dittoManager.version}"
     }
 }
