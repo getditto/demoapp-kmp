@@ -1,4 +1,5 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google {
@@ -8,8 +9,8 @@ pluginManagement {
                 includeGroupAndSubgroups("com.google")
             }
         }
-        gradlePluginPortal()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 
@@ -26,5 +27,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Kotlin_Multipeer"
+rootProject.name = "KotlinMultipeer"
 include(":composeApp")
