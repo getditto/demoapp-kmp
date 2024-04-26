@@ -26,7 +26,7 @@ kotlin {
             isStatic = true
         }
         pod("DittoObjC") {
-            version = "4.7.1-rc.2"
+            version = "4.7.1-rc.3"
         }
     }
 

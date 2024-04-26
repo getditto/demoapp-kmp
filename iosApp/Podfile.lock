@@ -1,7 +1,7 @@
 PODS:
-  - DittoObjC (4.7.1-rc.2)
+  - DittoObjC (4.7.1-rc.3)
   - shared (1.0):
-    - DittoObjC (= 4.7.1-rc.2)
+    - DittoObjC (= 4.7.1-rc.3)
 
 DEPENDENCIES:
   - shared (from `../shared`)
@@ -15,8 +15,8 @@ EXTERNAL SOURCES:
     :path: "../shared"
 
 SPEC CHECKSUMS:
-  DittoObjC: 53aafcbbb833f270e28d10d7727aa06c9f6e7432
-  shared: 3ecd45e5df7c312326c80a655b2e040831ffd6f0
+  DittoObjC: 44a68aa1a0e13f4d9f77e7ab4f1dfddd421ece06
+  shared: c584743ccae7facc69cc8765fce7aebaed24e04f
 
 PODFILE CHECKSUM: 78d6cc1b71b232202c48a29d4e6c34972c534c73
 
