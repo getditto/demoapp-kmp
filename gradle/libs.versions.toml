@@ -10,6 +10,7 @@ ditto = "4.7.1-rc.3"
 # https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
 compose-compiler = "1.5.12"
 compose-material3 = "1.2.1"
+gradle-wrapper = "8.7"
 koin = "3.1.4"
 kotlin = "1.9.23"
 

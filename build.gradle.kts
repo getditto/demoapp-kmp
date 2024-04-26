@@ -7,3 +7,9 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.kotlinCocoapods).apply(false)
 }
+
+val wrapper: Task by tasks.getting {
+    this as Wrapper
+    gradleVersion = libs.versions.gradle.wrapper.get()
+    distributionType = Wrapper.DistributionType.BIN
+}
