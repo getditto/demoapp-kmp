@@ -23,7 +23,7 @@ kotlin {
         ios.deploymentTarget = "16.0"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "ComposeApp"
             isStatic = true
         }
         pod("DittoObjC") {
@@ -34,11 +34,19 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.koin.core)
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.ditto)
             implementation(libs.koin.android)
         }

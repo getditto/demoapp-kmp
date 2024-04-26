@@ -27,5 +27,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Kotlin_Multipeer"
-include(":androidApp")
-include(":shared")
+include(":composeApp")

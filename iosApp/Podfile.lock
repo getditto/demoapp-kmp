@@ -1,23 +1,23 @@
 PODS:
-  - DittoObjC (4.7.1-rc.3)
-  - shared (1.0):
+  - composeApp (1.0):
     - DittoObjC (= 4.7.1-rc.3)
+  - DittoObjC (4.7.1-rc.3)
 
 DEPENDENCIES:
-  - shared (from `../shared`)
+  - composeApp (from `../composeApp`)
 
 SPEC REPOS:
   trunk:
     - DittoObjC
 
 EXTERNAL SOURCES:
-  shared:
-    :path: "../shared"
+  composeApp:
+    :path: "../composeApp"
 
 SPEC CHECKSUMS:
+  composeApp: 8bf8c2450718e47123a271619b62d4fb38b4ef7b
   DittoObjC: 44a68aa1a0e13f4d9f77e7ab4f1dfddd421ece06
-  shared: 0f0887101beeb702c2b902f0d21a4524bff7dfe9
 
-PODFILE CHECKSUM: 78d6cc1b71b232202c48a29d4e6c34972c534c73
+PODFILE CHECKSUM: 501c9565884acd2f13287e4df5f64b146b918298
 
 COCOAPODS: 1.15.2
