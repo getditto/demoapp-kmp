@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-//    alias(libs.plugins.kotlinCocoapods)
+    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.kotlinMultiplatform)
 }
 
@@ -13,6 +13,17 @@ kotlin {
             }
         }
     }
+
+//    listOf(
+//        iosArm64(),
+//        iosSimulatorArm64()
+//    ).forEach { iosTarget ->
+//        iosTarget.binaries.framework {
+//            baseName = "ComposeApp"
+//            isStatic = true
+//        }
+//    }
+
     iosArm64()
     iosSimulatorArm64()
 
@@ -34,12 +45,12 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.koin.core)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.runtime)
+            implementation(compose.ui)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
