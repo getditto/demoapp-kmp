@@ -33,10 +33,10 @@ kotlin {
         version = "1.0"
         ios.deploymentTarget = "16.0"
         podfile = project.file("../iosApp/Podfile")
-        framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
+//        framework {
+//            baseName = "ComposeApp"
+//            isStatic = true
+//        }
         pod("DittoObjC") {
             version = "4.7.1-rc.3"
         }

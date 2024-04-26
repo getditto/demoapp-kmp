@@ -1,0 +1,2 @@
+#include "Config.xcconfig"
+#include "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"
