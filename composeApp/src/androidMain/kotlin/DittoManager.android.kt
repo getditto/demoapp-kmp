@@ -1,5 +1,3 @@
-package live.ditto.demo.kotlin_multipeer
-
 import live.ditto.Ditto
 import live.ditto.android.DefaultAndroidDittoDependencies
 import org.koin.java.KoinJavaComponent.getKoin

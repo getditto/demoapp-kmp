@@ -1,5 +1,3 @@
-package live.ditto.demo.kotlin_multipeer
-
 import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import kotlinx.cinterop.ExperimentalForeignApi
