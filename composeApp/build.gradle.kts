@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
@@ -69,12 +72,27 @@ android {
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
+    android.buildFeatures.buildConfig = true
+
     defaultConfig {
         applicationId = "live.ditto.demo.kotlinmultipeer"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        // Android app environment variables
+        val envFile = rootProject.file("env.properties")
+        if (!envFile.exists()) {
+            throw Exception("Missing env.properties file. Please copy the env.properties.example template and fill in with your app details.")
+        }
+        val env = Properties()
+        env.load(FileInputStream(envFile))
+        // Explicit double-quotes are needed in the string value in order to be a valid string in
+        // the generated BuildConfig.java file.
+        buildConfigField("String", "DITTO_APP_ID", "\"" + env["DITTO_APP_ID"] + "\"")
+        buildConfigField("String", "DITTO_PLAYGROUND_TOKEN", "\"" + env["DITTO_PLAYGROUND_TOKEN"] + "\"")
+        buildConfigField("String", "DITTO_OFFLINE_TOKEN", "\"" + env["DITTO_OFFLINE_TOKEN"] + "\"")
     }
     packaging {
         resources {
