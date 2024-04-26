@@ -7,6 +7,7 @@
 Pods/
 build
 captures
+env.properties
 local.properties
 xcuserdata
 xcuserdata*.iml
