@@ -56,7 +56,10 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
+            implementation(libs.accompanist.permissions)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.lifecycle.runtime.ktx)
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.ditto)
             implementation(libs.koin.android)
