@@ -1,4 +1,5 @@
 import SwiftUI
+import DittoObjC
 
 @main
 struct iOSApp: App {
