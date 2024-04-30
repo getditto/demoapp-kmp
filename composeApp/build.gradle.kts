@@ -38,7 +38,7 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
 
         pod("DittoObjC") {
-            version = "4.7.1-rc.3"
+            version = "4.7.1"
         }
     }
 
@@ -87,7 +87,9 @@ android {
         // Android app environment variables
         val envFile = rootProject.file("env.properties")
         if (!envFile.exists()) {
-            throw Exception("Missing env.properties file. Please copy the env.properties.example template and fill in with your app details.")
+            throw Exception(
+                "Missing env.properties file. Please copy the env.properties.example template and fill in with your app details.",
+            )
         }
         val env = Properties()
         env.load(FileInputStream(envFile))
