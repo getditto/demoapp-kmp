@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/composeApp.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '16.0'
-    spec.dependency 'DittoObjC', '4.7.1-rc.3'
+    spec.dependency 'DittoObjC', '4.7.1'
                 
     if !Dir.exist?('build/cocoapods/framework/composeApp.framework') || Dir.empty?('build/cocoapods/framework/composeApp.framework')
         raise "
