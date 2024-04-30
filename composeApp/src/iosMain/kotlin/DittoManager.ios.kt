@@ -1,24 +1,52 @@
 import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
-import kotlinx.cinterop.*
+import cocoapods.DittoObjC.DITLogger
+import cocoapods.DittoObjC.DITPeer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ObjCObjectVar
 import platform.Foundation.NSError
-import platform.Foundation.NSUUID
+
+const val DITTO_APP_ID = "REPLACE_ME"
+
+@Suppress("SpellCheckingInspection")
+const val DITTO_OFFLINE_TOKEN = "REPLACE_ME"
 
 @OptIn(ExperimentalForeignApi::class)
 class IOSDittoManager : DittoManager {
     companion object {
-        private val identity = DITIdentity(offlinePlaygroundWithAppID = NSUUID.UUID().UUIDString)
-        val ditto = DITDitto(identity)
+        private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
+        val ditto =
+            DITDitto(identity).also {
+                DITLogger.enabled = true
+                DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
+//                DITLogger.minimumLogLevel = 4UL // DITLogLevel.Debug
+                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, null)
+            }
     }
-    override val version: String = """
+
+    override val version =
+        """
         sdkVersion: ${ditto.sdkVersion()}
-    """.trimIndent()
+        """.trimIndent()
 }
 
 actual fun getDittoManager(): DittoManager = IOSDittoManager()
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun startSync() {
-    val errorPtr = memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
-    IOSDittoManager.ditto.startSync(errorPtr.value)
+    // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
+    val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
+
+    with(IOSDittoManager.ditto) {
+        presence.observe {
+            it?.let {
+                for (peer in it.remotePeers) {
+                    peer as DITPeer
+                    println("Remote peer: ${peer.deviceName}")
+                }
+            }
+        }
+        startSync(errorPtr)
+    }
 }

@@ -1,6 +1,7 @@
 import AndroidDittoManager.Companion.TAG
 import android.util.Log
 import live.ditto.Ditto
+import live.ditto.DittoConnectionRequestAuthorization.Allow
 import live.ditto.DittoIdentity.OfflinePlayground
 import live.ditto.DittoLogLevel
 import live.ditto.DittoLogger
@@ -15,17 +16,19 @@ class AndroidDittoManager : DittoManager {
         const val TAG = "AndroidDittoManager"
         private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
         private val identity = OfflinePlayground(dependencies, DITTO_APP_ID)
-        val ditto: Ditto = Ditto(dependencies, identity).also {
-            DittoLogger.enabled
-            DittoLogger.minimumLogLevel = DittoLogLevel.DEBUG
-            it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN)
-        }
+        val ditto: Ditto =
+            Ditto(dependencies, identity).also {
+                DittoLogger.enabled = true
+                DittoLogger.minimumLogLevel = DittoLogLevel.INFO
+                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN)
+            }
     }
 
-    override val version: String = """
+    override val version: String =
+        """
         VERSION: ${Ditto.VERSION}
         sdkVersion: ${ditto.sdkVersion}
-    """.trimIndent()
+        """.trimIndent()
 }
 
 actual fun getDittoManager(): DittoManager = AndroidDittoManager()
@@ -37,6 +40,17 @@ actual fun startSync() {
     if (missingPermissions.isNotEmpty()) {
         Log.w(TAG, "Missing permissions: $missingPermissions")
     } else {
-        AndroidDittoManager.ditto.startSync()
+        with(AndroidDittoManager.ditto) {
+            presence.connectionRequestHandler = { connectionRequest ->
+                Log.i(TAG, "Connection request from $connectionRequest")
+                Allow
+            }
+            presence.observe {
+                for (peer in it.remotePeers) {
+                    println("Remote peer: ${peer.deviceName}")
+                }
+            }
+            startSync()
+        }
     }
 }
