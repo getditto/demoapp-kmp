@@ -28,16 +28,17 @@ class MainActivity : ComponentActivity() {
     fun RequestPermission() {
         val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-        val lifecycleObserver = remember {
-            LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_START) {
-                    val missing = DittoSyncPermissions(this).missingPermissions()
-                    if (missing.isNotEmpty()) {
-                        this.requestPermissions(missing, 0)
+        val lifecycleObserver =
+            remember {
+                LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_START) {
+                        val missing = DittoSyncPermissions(this).missingPermissions()
+                        if (missing.isNotEmpty()) {
+                            this.requestPermissions(missing, 0)
+                        }
                     }
                 }
             }
-        }
         DisposableEffect(lifecycle, lifecycleObserver) {
             lifecycle.addObserver(lifecycleObserver)
             onDispose {

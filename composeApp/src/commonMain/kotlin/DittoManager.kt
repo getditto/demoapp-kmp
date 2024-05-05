@@ -5,4 +5,3 @@ interface DittoManager {
 expect fun getDittoManager(): DittoManager
 
 expect fun startSync()
-
