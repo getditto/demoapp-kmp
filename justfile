@@ -1,10 +1,12 @@
+kotlin_sources := '**/src/**/*.kt*'
+
 default:
     @just --list
 
 lint:
     @just --unstable --fmt --check
-    @ktlint
+    @ktlint {{ kotlin_sources }}
 
 format:
     @just --unstable --fmt
-    @ktlint --format
+    @ktlint --format {{ kotlin_sources }}
