@@ -16,7 +16,6 @@ kotlin {
         compilations.configureEach {
             // Custom task which generates the Env object. Needs to be run before compileCommonMainKotlinMetadata
             compileTaskProvider.get().dependsOn("envTask")
-//            compileTaskProvider.get().inputs.files(envTask.get().outputs)
         }
     }
     androidTarget {
