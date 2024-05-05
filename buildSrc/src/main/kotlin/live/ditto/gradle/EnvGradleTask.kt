@@ -1,6 +1,11 @@
 package live.ditto.gradle
 
-import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
@@ -8,7 +13,7 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 /**
- * Custom gradle task that generates an [Env] class similar to the Android Gradle Plugin.
+ * Custom gradle task that generates an Env class similar to the Android Gradle Plugin's BuildConfig.
  */
 open class EnvGradleTask : DefaultTask() {
     @Input
@@ -17,23 +22,29 @@ open class EnvGradleTask : DefaultTask() {
     @Input
     var packageName = "live.ditto"
 
-    /**
-     * Output directory for the generated source code.
-     */
+    /** Output directory for the generated source code. */
     @OutputDirectory
     var sourceDir: File = project.file("src/main/kotlin")
 
-    /**
-     * Project version passed in from gradle property.
-     */
-    @Input
-    var version: String? = null
-
-    /**
-     * Debug mode passed in from gradle.
-     */
+    /** Debug mode passed in from gradle. */
     @Input
     var debug = false
+
+    /** Project version passed in from gradle property. */
+    @Input
+    var version: String = ""
+
+    /** App Identifier from the Ditto Cloud Portal. */
+    @Input
+    var dittoAppId: String = ""
+
+    /** Offline license token from the Ditto Cloud Portal. */
+    @Input
+    var dittoOfflineToken: String = ""
+
+    /** Online playground token from the Ditto Cloud Portal. */
+    @Input
+    var dittoPlaygroundToken: String = ""
 
     init {
         group = "Java"
@@ -42,9 +53,6 @@ open class EnvGradleTask : DefaultTask() {
 
     @TaskAction
     fun generateClass() {
-        val version =
-            version ?: throw ExceptionInInitializerError("Version property must be specified")
-
         if (!sourceDir.exists()) {
             sourceDir.mkdirs()
         }
@@ -54,15 +62,33 @@ open class EnvGradleTask : DefaultTask() {
                 .addType(
                     TypeSpec.objectBuilder(className)
                         .addProperty(
-                            PropertySpec.builder("VERSION", String::class)
+                            PropertySpec.builder("version", String::class)
                                 .addModifiers(KModifier.CONST)
                                 .initializer("\"$version\"")
                                 .build()
                         )
                         .addProperty(
-                            PropertySpec.builder("DEBUG", Boolean::class)
+                            PropertySpec.builder("debug", Boolean::class)
                                 .addModifiers(KModifier.CONST)
                                 .initializer("$debug")
+                                .build()
+                        )
+                        .addProperty(
+                            PropertySpec.builder("dittoAppId", String::class)
+                                .addModifiers(KModifier.CONST)
+                                .initializer("\"$dittoAppId\"")
+                                .build()
+                        )
+                        .addProperty(
+                            PropertySpec.builder("dittoOfflineToken", String::class)
+                                .addModifiers(KModifier.CONST)
+                                .initializer("\"$dittoOfflineToken\"")
+                                .build()
+                        )
+                        .addProperty(
+                            PropertySpec.builder("dittoPlaygroundToken", String::class)
+                                .addModifiers(KModifier.CONST)
+                                .initializer("\"$dittoPlaygroundToken\"")
                                 .build()
                         )
                         .build()

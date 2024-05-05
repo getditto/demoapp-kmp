@@ -7,10 +7,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
 import platform.Foundation.NSError
 
-const val DITTO_APP_ID = "REPLACE_ME"
-
-@Suppress("SpellCheckingInspection")
-const val DITTO_OFFLINE_TOKEN = "REPLACE_ME"
+const val DITTO_APP_ID = Env.dittoAppId
 
 @OptIn(ExperimentalForeignApi::class)
 class IOSDittoManager : DittoManager {
@@ -21,7 +18,7 @@ class IOSDittoManager : DittoManager {
                 DITLogger.enabled = true
                 DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
 //                DITLogger.minimumLogLevel = 4UL // DITLogLevel.Debug
-                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, null)
+                it.setOfflineOnlyLicenseToken(Env.dittoOfflineToken, error = null)
             }
     }
 

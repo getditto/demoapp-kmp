@@ -6,8 +6,6 @@ import live.ditto.DittoIdentity.OfflinePlayground
 import live.ditto.DittoLogLevel
 import live.ditto.DittoLogger
 import live.ditto.android.DefaultAndroidDittoDependencies
-import live.ditto.demo.kotlinmultipeer.BuildConfig.DITTO_APP_ID
-import live.ditto.demo.kotlinmultipeer.BuildConfig.DITTO_OFFLINE_TOKEN
 import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent.getKoin
 
@@ -15,12 +13,12 @@ class AndroidDittoManager : DittoManager {
     companion object {
         const val TAG = "AndroidDittoManager"
         private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
-        private val identity = OfflinePlayground(dependencies, DITTO_APP_ID)
+        private val identity = OfflinePlayground(dependencies, Env.dittoAppId)
         val ditto: Ditto =
             Ditto(dependencies, identity).also {
                 DittoLogger.enabled = true
                 DittoLogger.minimumLogLevel = DittoLogLevel.INFO
-                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN)
+                it.setOfflineOnlyLicenseToken(Env.dittoOfflineToken)
             }
     }
 
