@@ -122,11 +122,11 @@ tasks {
         className = "Env"
         packageName = ""
         sourceDir = file("src/commonMain/kotlin")
-        debug = true
-        version = project.version as String
-        dittoAppId = env["DITTO_APP_ID"] as String
-        dittoOfflineToken = env["DITTO_OFFLINE_TOKEN"] as String
-        dittoPlaygroundToken = env["DITTO_PLAYGROUND_TOKEN"] as String
+        DEBUG = true
+        VERSION = project.version as String
+        DITTO_APP_ID = env["DITTO_APP_ID"] as String
+        DITTO_OFFLINE_TOKEN = env["DITTO_OFFLINE_TOKEN"] as String
+        DITTO_PLAYGROUND_TOKEN = env["DITTO_PLAYGROUND_TOKEN"] as String
     }
 
     // compileDebugKotlinAndroid

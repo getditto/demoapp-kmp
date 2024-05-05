@@ -1,4 +1,3 @@
 package live.ditto.gradle
 
-class BuildSrcPlugin {
-}
+class BuildSrcPlugin

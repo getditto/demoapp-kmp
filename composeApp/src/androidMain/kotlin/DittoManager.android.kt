@@ -1,4 +1,6 @@
 import AndroidDittoManager.Companion.TAG
+import Env.DITTO_APP_ID
+import Env.DITTO_OFFLINE_TOKEN
 import android.util.Log
 import live.ditto.Ditto
 import live.ditto.DittoConnectionRequestAuthorization.Allow
@@ -13,12 +15,12 @@ class AndroidDittoManager : DittoManager {
     companion object {
         const val TAG = "AndroidDittoManager"
         private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
-        private val identity = OfflinePlayground(dependencies, Env.dittoAppId)
+        private val identity = OfflinePlayground(dependencies, DITTO_APP_ID)
         val ditto: Ditto =
             Ditto(dependencies, identity).also {
                 DittoLogger.enabled = true
                 DittoLogger.minimumLogLevel = DittoLogLevel.INFO
-                it.setOfflineOnlyLicenseToken(Env.dittoOfflineToken)
+                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN)
             }
     }
 

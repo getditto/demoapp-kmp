@@ -28,23 +28,28 @@ open class EnvGradleTask : DefaultTask() {
 
     /** Debug mode passed in from gradle. */
     @Input
-    var debug = false
+    @Suppress("PropertyName")
+    var DEBUG = false
 
     /** Project version passed in from gradle property. */
     @Input
-    var version: String = ""
+    @Suppress("PropertyName")
+    var VERSION: String = ""
 
     /** App Identifier from the Ditto Cloud Portal. */
     @Input
-    var dittoAppId: String = ""
+    @Suppress("PropertyName")
+    var DITTO_APP_ID: String = ""
 
     /** Offline license token from the Ditto Cloud Portal. */
     @Input
-    var dittoOfflineToken: String = ""
+    @Suppress("PropertyName")
+    var DITTO_OFFLINE_TOKEN: String = ""
 
     /** Online playground token from the Ditto Cloud Portal. */
     @Input
-    var dittoPlaygroundToken: String = ""
+    @Suppress("PropertyName")
+    var DITTO_PLAYGROUND_TOKEN: String = ""
 
     init {
         group = "Java"
@@ -62,33 +67,33 @@ open class EnvGradleTask : DefaultTask() {
                 .addType(
                     TypeSpec.objectBuilder(className)
                         .addProperty(
-                            PropertySpec.builder("version", String::class)
+                            PropertySpec.builder("VERSION", String::class)
                                 .addModifiers(KModifier.CONST)
-                                .initializer("\"$version\"")
+                                .initializer("\"$VERSION\"")
                                 .build()
                         )
                         .addProperty(
-                            PropertySpec.builder("debug", Boolean::class)
+                            PropertySpec.builder("DEBUG", Boolean::class)
                                 .addModifiers(KModifier.CONST)
-                                .initializer("$debug")
+                                .initializer(DEBUG.toString())
                                 .build()
                         )
                         .addProperty(
-                            PropertySpec.builder("dittoAppId", String::class)
+                            PropertySpec.builder("DITTO_APP_ID", String::class)
                                 .addModifiers(KModifier.CONST)
-                                .initializer("\"$dittoAppId\"")
+                                .initializer("\"$DITTO_APP_ID\"")
                                 .build()
                         )
                         .addProperty(
-                            PropertySpec.builder("dittoOfflineToken", String::class)
+                            PropertySpec.builder("DITTO_OFFLINE_TOKEN", String::class)
                                 .addModifiers(KModifier.CONST)
-                                .initializer("\"$dittoOfflineToken\"")
+                                .initializer("\"$DITTO_OFFLINE_TOKEN\"")
                                 .build()
                         )
                         .addProperty(
-                            PropertySpec.builder("dittoPlaygroundToken", String::class)
+                            PropertySpec.builder("DITTO_PLAYGROUND_TOKEN", String::class)
                                 .addModifiers(KModifier.CONST)
-                                .initializer("\"$dittoPlaygroundToken\"")
+                                .initializer("\"$DITTO_PLAYGROUND_TOKEN\"")
                                 .build()
                         )
                         .build()
