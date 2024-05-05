@@ -129,44 +129,18 @@ tasks {
         dittoPlaygroundToken = env["DITTO_PLAYGROUND_TOKEN"] as String
     }
 
-//    val compileCommonMainKotlinMetadata by getting {
-//        inputs.files(envTask.get().outputs)
-//    }
-
-//    withType<KotlinCompilationTask> {
-//        dependsOn(envTask)
-//    }
-
-    // compileKotlinIosSimulatorArm64
-    withType<KotlinNativeCompile> {
-        dependsOn(envTask)
-    }
+    // compileDebugKotlinAndroid
     withType<KotlinCompile> {
         // Ensure the [Env] object has been generated
         dependsOn(envTask)
     }
-//    val preBuild by getting {
-//        // Ensure the [Env] object has been generated
-//        dependsOn(envTask)
-//    }
-}
+    // compileKotlinIosSimulatorArm64
+    withType<KotlinNativeCompile> {
+        dependsOn(envTask)
+    }
 
-
-afterEvaluate {
-    tasks {
-        val envTask by getting
-//        val compileCommonMainKotlinMetadata = findByName("compileCommonMainKotlinMetadata")
-//        compileCommonMainKotlinMetadata?.dependsOn(envTask)
-
-//        val compileCommonMainKotlinMetadata by getting {
-//            inputs.files(envTask.outputs)
-//        }
-
-        clean {
-            delete +=
-                listOf(
-                    "$rootDir/composeApp/src/commonMain/kotlin/Env.kt"
-                )
-        }
+    clean {
+        // Remove generated Env.kt file
+        delete += listOf("$rootDir/composeApp/src/commonMain/kotlin/Env.kt")
     }
 }
