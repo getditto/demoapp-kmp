@@ -3,8 +3,8 @@
  * Ditto Android buildSrc Gradle project
  */
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "buildSrc"
-//enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 // https://docs.gradle.org/current/userguide/platforms.html#sec:sharing-catalogs
 dependencyResolutionManagement {
