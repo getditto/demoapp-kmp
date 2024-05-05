@@ -1,3 +1,6 @@
+import live.ditto.gradle.EnvGradleTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -9,6 +12,12 @@ plugins {
 }
 
 kotlin {
+    metadata {
+        compilations.configureEach {
+            // Custom task which generates the Env object. Needs to be run before compileCommonMainKotlinMetadata
+            compileTaskProvider.get().dependsOn("envTask")
+        }
+    }
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -73,21 +82,6 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-
-        // Android app environment variables
-        val envFile = rootProject.file("env.properties")
-        if (!envFile.exists()) {
-            throw Exception(
-                "Missing env.properties file. Please copy the env.properties.example template and fill in with your app details.",
-            )
-        }
-        val env = Properties()
-        env.load(FileInputStream(envFile))
-        // Explicit double-quotes are needed in the string value in order to be a valid string in
-        // the generated BuildConfig.java file.
-        buildConfigField("String", "DITTO_APP_ID", "\"" + env["DITTO_APP_ID"] + "\"")
-        buildConfigField("String", "DITTO_PLAYGROUND_TOKEN", "\"" + env["DITTO_PLAYGROUND_TOKEN"] + "\"")
-        buildConfigField("String", "DITTO_OFFLINE_TOKEN", "\"" + env["DITTO_OFFLINE_TOKEN"] + "\"")
     }
     packaging {
         resources {
@@ -112,4 +106,40 @@ tasks {
     // Dummy testClasses task to resolve error:
     // > Cannot locate tasks that match ':shared:testClasses' as task 'testClasses' not found in project ':shared'.
     val testClasses by creating
+
+    // Android app environment variables
+    val envFile = rootProject.file("env.properties")
+    if (!envFile.exists()) {
+        throw Exception(
+            "Missing env.properties file. Please copy the env.properties.example template and fill in with your app details.",
+        )
+    }
+    val env = Properties()
+    env.load(FileInputStream(envFile))
+
+    val envTask by registering(EnvGradleTask::class) {
+        className = "Env"
+        packageName = ""
+        sourceDir = file("src/commonMain/kotlin")
+        DEBUG = true
+        VERSION = project.version as String
+        DITTO_APP_ID = env["DITTO_APP_ID"] as String
+        DITTO_OFFLINE_TOKEN = env["DITTO_OFFLINE_TOKEN"] as String
+        DITTO_PLAYGROUND_TOKEN = env["DITTO_PLAYGROUND_TOKEN"] as String
+    }
+
+    // compileDebugKotlinAndroid
+    withType<KotlinCompile> {
+        // Ensure the [Env] object has been generated
+        dependsOn(envTask)
+    }
+    // compileKotlinIosSimulatorArm64
+    withType<KotlinNativeCompile> {
+        dependsOn(envTask)
+    }
+
+    clean {
+        // Remove generated Env.kt file
+        delete += listOf("$rootDir/composeApp/src/commonMain/kotlin/Env.kt")
+    }
 }

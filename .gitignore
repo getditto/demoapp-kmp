@@ -7,6 +7,7 @@
 Pods/
 build
 captures
+composeApp/src/commonMain/kotlin/Env.kt
 env.properties
 local.properties
 xcuserdata

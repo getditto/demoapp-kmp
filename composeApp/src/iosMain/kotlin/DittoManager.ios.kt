@@ -1,3 +1,5 @@
+import Env.DITTO_APP_ID
+import Env.DITTO_OFFLINE_TOKEN
 import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLogger
@@ -6,11 +8,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
 import platform.Foundation.NSError
-
-const val DITTO_APP_ID = "REPLACE_ME"
-
-@Suppress("SpellCheckingInspection")
-const val DITTO_OFFLINE_TOKEN = "REPLACE_ME"
 
 @OptIn(ExperimentalForeignApi::class)
 class IOSDittoManager : DittoManager {
@@ -21,7 +18,7 @@ class IOSDittoManager : DittoManager {
                 DITLogger.enabled = true
                 DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
 //                DITLogger.minimumLogLevel = 4UL // DITLogLevel.Debug
-                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, null)
+                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
             }
     }
 

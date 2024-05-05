@@ -1,4 +1,6 @@
 import AndroidDittoManager.Companion.TAG
+import Env.DITTO_APP_ID
+import Env.DITTO_OFFLINE_TOKEN
 import android.util.Log
 import live.ditto.Ditto
 import live.ditto.DittoConnectionRequestAuthorization.Allow
@@ -6,8 +8,6 @@ import live.ditto.DittoIdentity.OfflinePlayground
 import live.ditto.DittoLogLevel
 import live.ditto.DittoLogger
 import live.ditto.android.DefaultAndroidDittoDependencies
-import live.ditto.demo.kotlinmultipeer.BuildConfig.DITTO_APP_ID
-import live.ditto.demo.kotlinmultipeer.BuildConfig.DITTO_OFFLINE_TOKEN
 import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent.getKoin
 
