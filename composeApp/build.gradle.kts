@@ -1,3 +1,5 @@
+import live.ditto.gradle.EnvGradleTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -112,4 +114,17 @@ tasks {
     // Dummy testClasses task to resolve error:
     // > Cannot locate tasks that match ':shared:testClasses' as task 'testClasses' not found in project ':shared'.
     val testClasses by creating
+
+    val envTask by registering(EnvGradleTask::class) {
+        className = "Env"
+        packageName = ""
+        sourceDir = file("src/commonMain/kotlin")
+        version = project.version as String
+        debug = true
+    }
+
+    withType<KotlinCompile> {
+        // Ensure the [Env] object has been generated
+        dependsOn(envTask)
+    }
 }
