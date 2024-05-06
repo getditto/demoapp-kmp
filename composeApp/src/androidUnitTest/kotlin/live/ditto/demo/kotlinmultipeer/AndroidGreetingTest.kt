@@ -4,7 +4,7 @@ import Greeting
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class Test {
+class AndroidGreetingTest {
     @Test
     fun testExample() {
         assertTrue("Check Android is mentioned", Greeting().greet().contains("Android"))
