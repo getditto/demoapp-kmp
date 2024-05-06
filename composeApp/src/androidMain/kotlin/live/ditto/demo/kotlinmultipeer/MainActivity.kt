@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     if (event == Lifecycle.Event.ON_START) {
                         val missing = DittoSyncPermissions(this).missingPermissions()
                         if (missing.isNotEmpty()) {
-                            this.requestPermissions(missing, 0)
+                            requestPermissions(missing, 0)
                         }
                     }
                 }

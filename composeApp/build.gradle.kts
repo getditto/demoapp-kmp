@@ -1,4 +1,7 @@
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
 import live.ditto.gradle.EnvGradleTask
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 import java.io.FileInputStream
@@ -22,6 +25,16 @@ kotlin {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "11"
+            }
+        }
+
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation(libs.compose.ui.test.junit4.android)
+                debugImplementation(libs.compose.ui.test.manifest)
             }
         }
     }
@@ -82,6 +95,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
@@ -99,6 +113,11 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+
+        testImplementation(libs.kotlin.test)
+        testImplementation(libs.testing.junit)
+        androidTestImplementation(libs.kotlin.test)
+        androidTestImplementation(libs.testing.junit)
     }
 }
 
