@@ -1,7 +1,7 @@
 PODS:
   - composeApp (1.0):
-    - DittoObjC (= 4.7.1)
-  - DittoObjC (4.7.1)
+    - DittoObjC (= 4.7.2-rc.1)
+  - DittoObjC (4.7.2-rc.1)
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
@@ -15,8 +15,8 @@ EXTERNAL SOURCES:
     :path: "../composeApp"
 
 SPEC CHECKSUMS:
-  composeApp: 0090d8395520aab8f54b1a33e245109bb8da137f
-  DittoObjC: bfbd32b2af98c419459cb840d89571081ef4f251
+  composeApp: 2f1a42b9146930a2553634923580953b8db10fc0
+  DittoObjC: 3f3de19c28986d14cad0a98d14eac5bd5b4d9f0b
 
 PODFILE CHECKSUM: ea73dd2cb2487f8f8c7b60549b0e676857da350f
 

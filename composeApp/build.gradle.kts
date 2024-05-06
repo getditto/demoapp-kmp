@@ -50,7 +50,7 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
 
         pod("DittoObjC") {
-            version = "4.7.1"
+            version = libs.versions.ditto.get()
         }
     }
 
