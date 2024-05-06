@@ -73,12 +73,6 @@ open class EnvGradleTask : DefaultTask() {
                                 .build(),
                         )
                         .addProperty(
-                            PropertySpec.builder("DEBUG", Boolean::class)
-                                .addModifiers(KModifier.CONST)
-                                .initializer(DEBUG.toString())
-                                .build(),
-                        )
-                        .addProperty(
                             PropertySpec.builder("DITTO_APP_ID", String::class)
                                 .addModifiers(KModifier.CONST)
                                 .initializer("\"$DITTO_APP_ID\"")
