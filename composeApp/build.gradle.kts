@@ -124,7 +124,7 @@ android {
 tasks {
     // Dummy testClasses task to resolve error:
     // > Cannot locate tasks that match ':shared:testClasses' as task 'testClasses' not found in project ':shared'.
-    val testClasses by creating
+    val testClasses by registering
 
     // Android app environment variables
     val envFile = rootProject.file("env.properties")
@@ -145,6 +145,14 @@ tasks {
         DITTO_APP_ID = env["DITTO_APP_ID"] as String
         DITTO_OFFLINE_TOKEN = env["DITTO_OFFLINE_TOKEN"] as String
         DITTO_PLAYGROUND_TOKEN = env["DITTO_PLAYGROUND_TOKEN"] as String
+    }
+
+    val podClean by registering(Delete::class) {
+        description = "Clean the Podfile.lock file"
+        delete += listOf("$rootDir/iosApp/Podfile.lock")
+    }
+    val podInstall by getting {
+        dependsOn(podClean)
     }
 
     // compileDebugKotlinAndroid
