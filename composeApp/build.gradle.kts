@@ -1,4 +1,7 @@
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
 import live.ditto.gradle.EnvGradleTask
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 import java.io.FileInputStream
@@ -24,6 +27,16 @@ kotlin {
                 jvmTarget = "11"
             }
         }
+
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation(libs.compose.ui.test.junit4.android)
+                debugImplementation(libs.compose.ui.test.manifest)
+            }
+        }
     }
 
     iosArm64()
@@ -37,7 +50,7 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
 
         pod("DittoObjC") {
-            version = "4.7.1"
+            version = libs.versions.ditto.get()
         }
     }
 
@@ -82,6 +95,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
@@ -99,13 +113,18 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+
+        testImplementation(libs.kotlin.test)
+        testImplementation(libs.testing.junit)
+        androidTestImplementation(libs.kotlin.test)
+        androidTestImplementation(libs.testing.junit)
     }
 }
 
 tasks {
     // Dummy testClasses task to resolve error:
     // > Cannot locate tasks that match ':shared:testClasses' as task 'testClasses' not found in project ':shared'.
-    val testClasses by creating
+    val testClasses by registering
 
     // Android app environment variables
     val envFile = rootProject.file("env.properties")
@@ -126,6 +145,14 @@ tasks {
         DITTO_APP_ID = env["DITTO_APP_ID"] as String
         DITTO_OFFLINE_TOKEN = env["DITTO_OFFLINE_TOKEN"] as String
         DITTO_PLAYGROUND_TOKEN = env["DITTO_PLAYGROUND_TOKEN"] as String
+    }
+
+    val podClean by registering(Delete::class) {
+        description = "Clean the Podfile.lock file"
+        delete += listOf("$rootDir/iosApp/Podfile.lock")
+    }
+    val podInstall by getting {
+        dependsOn(podClean)
     }
 
     // compileDebugKotlinAndroid
