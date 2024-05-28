@@ -10,3 +10,9 @@ lint:
 format:
     @just --unstable --fmt
     @ktlint --format {{ kotlin_sources }}
+
+build:
+    ./gradlew :composeApp:assemble
+
+test:
+    ./gradlew :composeApp:connectedAndroidTest --info
