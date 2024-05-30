@@ -1,4 +1,3 @@
-import com.android.build.gradle.tasks.factory.AndroidUnitTest
 import live.ditto.gradle.EnvGradleTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
