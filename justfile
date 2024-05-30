@@ -11,6 +11,9 @@ format:
     @just --unstable --fmt
     @ktlint --format {{ kotlin_sources }}
 
+clean:
+    ./gradlew :clean
+
 build:
     ./gradlew :composeApp:assemble
 
