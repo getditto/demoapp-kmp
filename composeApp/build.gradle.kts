@@ -14,12 +14,6 @@ plugins {
 }
 
 kotlin {
-    metadata {
-        compilations.configureEach {
-            // Custom task which generates the Env object. Needs to be run before compileCommonMainKotlinMetadata
-            compileTaskProvider.get().dependsOn("envTask")
-        }
-    }
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -77,6 +71,13 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.ditto)
             implementation(libs.koin.android)
+        }
+    }
+
+    metadata {
+        compilations.configureEach {
+            // Custom task which generates the Env object. Needs to be run before compileCommonMainKotlinMetadata
+            compileTaskProvider.get().dependsOn("envTask")
         }
     }
 }
