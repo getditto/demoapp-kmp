@@ -10,40 +10,37 @@ import kotlinx.cinterop.ObjCObjectVar
 import platform.Foundation.NSError
 
 @OptIn(ExperimentalForeignApi::class)
-class IOSDittoManager : DittoManager {
-    companion object {
-        private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
-        val ditto =
-            DITDitto(identity).also {
-                DITLogger.enabled = true
-                DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
-//                DITLogger.minimumLogLevel = 4UL // DITLogLevel.Debug
-                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
-            }
-    }
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual open class DittoManager actual constructor() {
+    private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
+    private val ditto =
+        DITDitto(identity).also {
+            DITLogger.enabled = true
+            DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
+            it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
+        }
 
-    override val version =
+    actual val version =
         """
         sdkVersion: ${ditto.sdkVersion()}
         """.trimIndent()
-}
 
-actual fun getDittoManager(): DittoManager = IOSDittoManager()
+    @OptIn(ExperimentalForeignApi::class)
+    actual fun startSync() {
+        // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
+        val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
 
-@OptIn(ExperimentalForeignApi::class)
-actual fun startSync() {
-    // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
-    val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
-
-    with(IOSDittoManager.ditto) {
-        presence.observe {
-            it?.let {
-                for (peer in it.remotePeers) {
-                    peer as DITPeer
-                    println("Remote peer: ${peer.deviceName}")
+        with(ditto) {
+            presence.observe {
+                it?.let {
+                    for (peer in it.remotePeers) {
+                        peer as DITPeer
+                        println("Remote peer: ${peer.deviceName}")
+                    }
                 }
             }
+            startSync(errorPtr)
         }
-        startSync(errorPtr)
     }
 }
+

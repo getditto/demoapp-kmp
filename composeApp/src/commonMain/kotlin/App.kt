@@ -25,7 +25,7 @@ fun App() {
                 Image(painterResource(Res.drawable.compose_multiplatform), null)
                 Text("Compose: $greeting")
             }
-            Button(onClick = { startSync() }) {
+            Button(onClick = {  }) {
                 Text("Start Sync")
             }
         }
