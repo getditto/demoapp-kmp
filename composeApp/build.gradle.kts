@@ -32,12 +32,24 @@ kotlin {
         }
     }
 
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "composeApp"
+            isStatic = true
+        }
+    }
 
     cocoapods {
+        name = "composeApp"
         framework {
-            baseName = "commonMain"
+            baseName = "composeApp"
+            isStatic = true
+            @OptIn(ExperimentalKotlinGradlePluginApi::class)
+            transitiveExport = true
         }
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
