@@ -39,11 +39,12 @@ build:
     pod install \
         --project-directory=iosApp/
 
+    set -o pipefail && \
     xcodebuild \
         -workspace iosApp/iosApp.xcworkspace \
         -scheme KotlinMultipeer \
         -configuration Debug \
-        -destination 'generic/platform=iOS Simulator'
+        -destination 'generic/platform=iOS Simulator' | xcbeautify
 
 test:
     ./gradlew :composeApp:connectedAndroidTest --info
