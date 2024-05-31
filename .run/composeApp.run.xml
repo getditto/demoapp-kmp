@@ -66,7 +66,7 @@
       <option name="Android.Gradle.BeforeRunTask" enabled="true" />
     </method>
   </configuration>
-  <configuration default="false" name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App">
+  <configuration default="false" name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
     <module name="KotlinMultipeer.composeApp.main" />
     <option name="DEPLOY" value="true" />
     <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
