@@ -100,6 +100,8 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
+    // Workaround to the compose multiplatform resources not supporting 'assets' folder.
+    // https://github.com/KevinnZou/compose-webview-multiplatform/issues/148#issuecomment-2106843276
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     android.buildFeatures.buildConfig = true
