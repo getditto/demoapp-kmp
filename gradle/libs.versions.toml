@@ -19,6 +19,7 @@ compose-compiler = "1.5.12"
 compose-material3 = "1.2.1"
 compose-plugin = "1.6.2"
 #compose-plugin = "1.6.10-beta02"
+compose-webview-multiplatform = "1.9.8"
 ditto = "4.7.1"
 gradle-wrapper = "8.7"
 koin = "3.1.4"
@@ -57,6 +58,7 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
+compose-webview-multiplatform = { module = "io.github.kevinnzou:compose-webview-multiplatform", version.ref = "compose-webview-multiplatform" }
 ditto = { module = "live.ditto:ditto", version.ref = "ditto" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
