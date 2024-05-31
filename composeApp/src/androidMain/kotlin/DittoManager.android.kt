@@ -26,12 +26,12 @@ actual open class DittoManager actual constructor() {
         }
 
     // Switch to ditto.sdkVersion in 4.7.2-rc.2
-    actual val version =
+    actual open val version =
         """
         sdkVersion: ${Ditto.VERSION}
         """.trimIndent()
 
-    actual fun startSync() {
+    actual open fun startSync() {
         val missingPermissions = DittoSyncPermissions(getKoin().get()).missingPermissions()
         Log.d(TAG, "Missing permissions: $missingPermissions.")
 

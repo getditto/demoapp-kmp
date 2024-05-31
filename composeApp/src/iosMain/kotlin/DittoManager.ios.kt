@@ -24,13 +24,13 @@ actual open class DittoManager actual constructor() {
             it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
         }
 
-    actual val version =
+    actual open val version =
         """
         sdkVersion: ${ditto.sdkVersion()}
         """.trimIndent()
 
     @OptIn(ExperimentalForeignApi::class)
-    actual fun startSync() {
+    actual open fun startSync() {
         // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
         val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
 
