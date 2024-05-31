@@ -12,6 +12,10 @@ import org.koin.java.KoinJavaComponent.getKoin
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual open class DittoManager actual constructor() {
+    init {
+        println("DittoManager init")
+    }
+
     private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
     private val identity = OfflinePlayground(dependencies, DITTO_APP_ID)
     private val ditto: Ditto =

@@ -12,6 +12,10 @@ import platform.Foundation.NSError
 @OptIn(ExperimentalForeignApi::class)
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual open class DittoManager actual constructor() {
+    init {
+        println("DittoManager init")
+    }
+
     private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
     private val ditto =
         DITDitto(identity).also {
