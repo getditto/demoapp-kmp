@@ -33,6 +33,10 @@ format:
 clean:
     ./gradlew :clean
 
+install:
+    pod install \
+        --project-directory=iosApp/
+
 build:
     ./gradlew :composeApp:assemble
 
