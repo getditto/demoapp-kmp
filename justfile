@@ -36,5 +36,14 @@ clean:
 build:
     ./gradlew :composeApp:assemble
 
+    pod install \
+        --project-directory=iosApp/
+
+    xcodebuild \
+        -workspace iosApp/iosApp.xcworkspace \
+        -scheme KotlinMultipeer \
+        -configuration Debug \
+        -destination 'generic/platform=iOS Simulator'
+
 test:
     ./gradlew :composeApp:connectedAndroidTest --info
