@@ -17,9 +17,9 @@ enum class DittoConnectionType {
 @OptIn(ExperimentalForeignApi::class)
 fun DITConnectionType.asModel(): DittoConnectionType =
     when (this) {
-        0UL -> Bluetooth
-        1UL -> AccessPoint
-        2UL -> P2PWiFi
-        3UL -> WebSocket
+        1UL -> Bluetooth
+        2UL -> AccessPoint
+        3UL -> P2PWiFi
+        4UL -> WebSocket
         else -> WebSocket
     }
