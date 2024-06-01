@@ -71,6 +71,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.compose.webview.multiplatform)
+            implementation(libs.kase64)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
