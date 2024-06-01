@@ -35,7 +35,9 @@ fun PresenceView(
     LaunchedEffect(key1 = presenceState) {
         launch {
             presenceState.collect { json ->
-                val base64Json = json.base64UrlEncoded
+                var base64Json = json.base64UrlEncoded
+                base64Json = base64Json.replace("-", "+")
+                println("base64Json: $base64Json")
                 navigator.evaluateJavaScript("Presence.updateNetwork('$base64Json');")
             }
         }
