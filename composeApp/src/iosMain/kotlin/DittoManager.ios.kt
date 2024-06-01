@@ -4,6 +4,7 @@ import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLogger
 import cocoapods.DittoObjC.DITPeer
+import cocoapods.DittoObjC.DITPresenceGraph
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
@@ -29,6 +30,8 @@ actual open class DittoManager actual constructor() {
         sdkVersion: ${ditto.sdkVersion()}
         """.trimIndent()
 
+    actual open val presence = DittoPresence(ditto.presence)
+
     @OptIn(ExperimentalForeignApi::class)
     actual open fun startSync() {
         // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
@@ -47,4 +50,3 @@ actual open class DittoManager actual constructor() {
         }
     }
 }
-

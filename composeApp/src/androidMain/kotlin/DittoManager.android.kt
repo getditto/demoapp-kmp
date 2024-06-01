@@ -31,6 +31,8 @@ actual open class DittoManager actual constructor() {
         sdkVersion: ${Ditto.VERSION}
         """.trimIndent()
 
+    actual open val presence = DittoPresence(ditto.presence)
+
     actual open fun startSync() {
         val missingPermissions = DittoSyncPermissions(getKoin().get()).missingPermissions()
         Log.d(TAG, "Missing permissions: $missingPermissions.")

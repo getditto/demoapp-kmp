@@ -1,6 +1,5 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -9,9 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.multiplatform.webview.util.KLogSeverity
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.rememberWebViewStateWithHTMLFile
 import kotlinmultipeer.composeapp.generated.resources.Res
 import kotlinmultipeer.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -23,14 +19,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     val ditto = remember { DittoManager() }
-
-    val webViewState =
-        rememberWebViewStateWithHTMLFile(
-            fileName = "dist/index.html",
-        )
-    webViewState.webSettings.apply {
-        logSeverity = KLogSeverity.Debug
-    }
 
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -45,9 +33,8 @@ fun App() {
                 Text("Start Sync")
             }
 
-            WebView(
-                state = webViewState,
-                modifier = Modifier.fillMaxSize()
+            PresenceView(
+                ditto = ditto,
             )
         }
     }
