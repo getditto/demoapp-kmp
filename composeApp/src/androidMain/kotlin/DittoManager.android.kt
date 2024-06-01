@@ -47,16 +47,11 @@ actual open class DittoManager actual constructor() {
                 Log.i(TAG, "Connection request from $connectionRequest")
                 Allow
             }
-            presence.observe {
-                for (peer in it.remotePeers) {
-                    Log.i(TAG, "Remote peer: ${peer.deviceName}")
-                }
-            }
             startSync()
         }
     }
 
     companion object {
-        const val TAG = "AndroidDittoManager"
+        const val TAG = "DittoManager"
     }
 }

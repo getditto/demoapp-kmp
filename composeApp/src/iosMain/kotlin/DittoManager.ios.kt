@@ -38,14 +38,6 @@ actual open class DittoManager actual constructor() {
         val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
 
         with(ditto) {
-            presence.observe {
-                it?.let {
-                    for (peer in it.remotePeers) {
-                        peer as DITPeer
-                        println("Remote peer: ${peer.deviceName}")
-                    }
-                }
-            }
             startSync(errorPtr)
         }
     }

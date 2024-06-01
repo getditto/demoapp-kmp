@@ -1,3 +1,4 @@
+import android.util.Log
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -11,10 +12,17 @@ actual class DittoPresence(private val presence: Presence) {
         callbackFlow {
             val dittoPresenceObserver =
                 presence.observe { graph ->
+                    for (peer in graph.remotePeers) {
+                        Log.i(TAG, "Remote peer: ${peer.deviceName}")
+                    }
                     trySend(graph.json())
                 }
             awaitClose {
                 dittoPresenceObserver.close()
             }
         }
+
+    companion object {
+        const val TAG = "DittoPresence"
+    }
 }

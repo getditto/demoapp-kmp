@@ -1,3 +1,4 @@
+import cocoapods.DittoObjC.DITPeer
 import cocoapods.DittoObjC.DITPresence
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.channels.awaitClose
@@ -14,7 +15,12 @@ actual class DittoPresence(private val presence: DITPresence) {
             val dittoPresenceObserver =
                 presence.observe { graph ->
                     @Suppress("NAME_SHADOWING")
-                    val graph = graph ?: throw IllegalStateException("graph is null")
+                    val graph = graph ?: return@observe
+
+                    for (peer in graph.remotePeers) {
+                        peer as DITPeer
+                        println("Remote peer: ${peer.asModel().deviceName}")
+                    }
                     trySend(graph.json())
                 }
             awaitClose {
