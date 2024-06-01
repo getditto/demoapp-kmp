@@ -1,3 +1,4 @@
+import cocoapods.DittoObjC.DITConnection
 import cocoapods.DittoObjC.DITPeer
 import cocoapods.DittoObjC.DITPresence
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -20,6 +21,10 @@ actual class DittoPresence(private val presence: DITPresence) {
                     for (peer in graph.remotePeers) {
                         peer as DITPeer
                         println("Remote peer: ${peer.asModel().deviceName}")
+                        peer.connections.forEach { connection ->
+                            connection as DITConnection
+                            println("Connection: ${connection.asModel().connectionType}")
+                        }
                     }
                     trySend(graph.json())
                 }

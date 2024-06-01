@@ -14,6 +14,9 @@ actual class DittoPresence(private val presence: Presence) {
                 presence.observe { graph ->
                     for (peer in graph.remotePeers) {
                         Log.i(TAG, "Remote peer: ${peer.deviceName}")
+                        peer.connections.forEach {
+                            Log.i(TAG, "Connection: ${it.connectionType}")
+                        }
                     }
                     trySend(graph.json())
                 }
