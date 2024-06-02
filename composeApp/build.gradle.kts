@@ -15,13 +15,9 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
-        }
+    jvmToolchain(17)
 
+    androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
             sourceSetTree.set(KotlinSourceSetTree.test)
@@ -107,6 +103,11 @@ android {
     // https://github.com/KevinnZou/compose-webview-multiplatform/issues/148#issuecomment-2106843276
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     android.buildFeatures.buildConfig = true
 
     defaultConfig {
@@ -127,10 +128,7 @@ android {
             isMinifyEnabled = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
 
