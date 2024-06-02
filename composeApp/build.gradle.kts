@@ -61,6 +61,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.koin.core)
+
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(compose.foundation)
@@ -70,6 +71,7 @@ kotlin {
             implementation(libs.compose.webview.multiplatform)
             implementation(libs.kase64)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.tiamat)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
