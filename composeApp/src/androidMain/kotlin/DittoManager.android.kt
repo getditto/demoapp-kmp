@@ -1,4 +1,3 @@
-import AndroidDittoManager.Companion.TAG
 import Env.DITTO_APP_ID
 import Env.DITTO_OFFLINE_TOKEN
 import android.util.Log
@@ -11,46 +10,48 @@ import live.ditto.android.DefaultAndroidDittoDependencies
 import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent.getKoin
 
-class AndroidDittoManager : DittoManager {
-    companion object {
-        const val TAG = "AndroidDittoManager"
-        private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
-        private val identity = OfflinePlayground(dependencies, DITTO_APP_ID)
-        val ditto: Ditto =
-            Ditto(dependencies, identity).also {
-                DittoLogger.enabled = true
-                DittoLogger.minimumLogLevel = DittoLogLevel.INFO
-                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN)
-            }
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual open class DittoManager actual constructor() {
+    init {
+        println("DittoManager init")
     }
 
-    override val version: String =
+    private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())
+    private val identity = OfflinePlayground(dependencies, DITTO_APP_ID)
+    private val ditto: Ditto =
+        Ditto(dependencies, identity).also {
+            DittoLogger.enabled = true
+            DittoLogger.minimumLogLevel = DittoLogLevel.INFO
+            it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN)
+        }
+
+    // Switch to ditto.sdkVersion in 4.7.2-rc.2
+    actual open val version =
         """
-        VERSION: ${Ditto.VERSION}
-        sdkVersion: ${ditto.sdkVersion}
+        sdkVersion: ${Ditto.VERSION}
         """.trimIndent()
-}
 
-actual fun getDittoManager(): DittoManager = AndroidDittoManager()
+    actual open val presence = DittoPresence(ditto.presence)
 
-actual fun startSync() {
-    val missingPermissions = DittoSyncPermissions(getKoin().get()).missingPermissions()
-    Log.d(TAG, "Missing permissions: $missingPermissions.")
+    actual open fun startSync() {
+        val missingPermissions = DittoSyncPermissions(getKoin().get()).missingPermissions()
+        Log.d(TAG, "Missing permissions: $missingPermissions.")
 
-    if (missingPermissions.isNotEmpty()) {
-        Log.w(TAG, "Missing permissions: $missingPermissions")
-    } else {
-        with(AndroidDittoManager.ditto) {
+        if (missingPermissions.isNotEmpty()) {
+            Log.w(TAG, "Missing permissions: $missingPermissions")
+            return
+        }
+
+        with(ditto) {
             presence.connectionRequestHandler = { connectionRequest ->
                 Log.i(TAG, "Connection request from $connectionRequest")
                 Allow
             }
-            presence.observe {
-                for (peer in it.remotePeers) {
-                    println("Remote peer: ${peer.deviceName}")
-                }
-            }
             startSync()
         }
+    }
+
+    companion object {
+        const val TAG = "DittoManager"
     }
 }

@@ -4,6 +4,7 @@
 .externalNativeBuild
 .gradle
 .idea
+.kotlin/
 Pods/
 build
 captures

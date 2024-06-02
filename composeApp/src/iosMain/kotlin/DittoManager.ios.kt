@@ -4,46 +4,41 @@ import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLogger
 import cocoapods.DittoObjC.DITPeer
+import cocoapods.DittoObjC.DITPresenceGraph
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
 import platform.Foundation.NSError
 
 @OptIn(ExperimentalForeignApi::class)
-class IOSDittoManager : DittoManager {
-    companion object {
-        private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
-        val ditto =
-            DITDitto(identity).also {
-                DITLogger.enabled = true
-                DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
-//                DITLogger.minimumLogLevel = 4UL // DITLogLevel.Debug
-                it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
-            }
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual open class DittoManager actual constructor() {
+    init {
+        println("DittoManager init")
     }
 
-    override val version =
+    private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
+    private val ditto =
+        DITDitto(identity).also {
+            DITLogger.enabled = true
+            DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
+            it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
+        }
+
+    actual open val version =
         """
         sdkVersion: ${ditto.sdkVersion()}
         """.trimIndent()
-}
 
-actual fun getDittoManager(): DittoManager = IOSDittoManager()
+    actual open val presence = DittoPresence(ditto.presence)
 
-@OptIn(ExperimentalForeignApi::class)
-actual fun startSync() {
-    // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
-    val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
+    @OptIn(ExperimentalForeignApi::class)
+    actual open fun startSync() {
+        // memScoped { allocPointerTo<ObjCObjectVar<NSError?>>() }
+        val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
 
-    with(IOSDittoManager.ditto) {
-        presence.observe {
-            it?.let {
-                for (peer in it.remotePeers) {
-                    peer as DITPeer
-                    println("Remote peer: ${peer.deviceName}")
-                }
-            }
+        with(ditto) {
+            startSync(errorPtr)
         }
-        startSync(errorPtr)
     }
 }

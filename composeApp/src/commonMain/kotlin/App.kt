@@ -18,16 +18,24 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
+    val ditto = remember { DittoManager() }
+
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            val greeting = remember { Greeting().greet() }
+            val greeting = remember { Greeting(ditto).greet() }
+
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(painterResource(Res.drawable.compose_multiplatform), null)
                 Text("Compose: $greeting")
             }
-            Button(onClick = { startSync() }) {
+
+            Button(onClick = { ditto.startSync() }) {
                 Text("Start Sync")
             }
+
+            PresenceView(
+                ditto = ditto,
+            )
         }
     }
 }

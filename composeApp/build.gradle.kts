@@ -1,4 +1,3 @@
-import com.android.build.gradle.tasks.factory.AndroidUnitTest
 import live.ditto.gradle.EnvGradleTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -12,15 +11,10 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
-    metadata {
-        compilations.configureEach {
-            // Custom task which generates the Env object. Needs to be run before compileCommonMainKotlinMetadata
-            compileTaskProvider.get().dependsOn("envTask")
-        }
-    }
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -39,10 +33,24 @@ kotlin {
         }
     }
 
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "composeApp"
+            isStatic = true
+        }
+    }
 
     cocoapods {
+        name = "composeApp"
+        framework {
+            baseName = "composeApp"
+            isStatic = true
+            @OptIn(ExperimentalKotlinGradlePluginApi::class)
+            transitiveExport = true
+        }
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = "1.0"
@@ -63,6 +71,9 @@ kotlin {
             implementation(compose.material)
             implementation(compose.runtime)
             implementation(compose.ui)
+            implementation(libs.compose.webview.multiplatform)
+            implementation(libs.kase64)
+            implementation(libs.kotlinx.serialization.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -77,6 +88,13 @@ kotlin {
             implementation(libs.koin.android)
         }
     }
+
+    metadata {
+        compilations.configureEach {
+            // Custom task which generates the Env object. Needs to be run before compileCommonMainKotlinMetadata
+            compileTaskProvider.get().dependsOn("envTask")
+        }
+    }
 }
 
 android {
@@ -85,6 +103,8 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
+    // Workaround to the compose multiplatform resources not supporting 'assets' folder.
+    // https://github.com/KevinnZou/compose-webview-multiplatform/issues/148#issuecomment-2106843276
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     android.buildFeatures.buildConfig = true
