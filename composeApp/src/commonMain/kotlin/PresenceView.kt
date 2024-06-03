@@ -17,7 +17,7 @@ import saschpe.kase64.base64UrlEncoded
 @Composable
 fun PresenceView(
     modifier: Modifier = Modifier.fillMaxSize(),
-    ditto: DittoManager,
+    ditto: Ditto,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     viewModel: PresenceViewModel = PresenceViewModel(ditto.presence, coroutineScope),
 ) {

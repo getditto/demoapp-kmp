@@ -11,9 +11,9 @@ import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent.getKoin
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual open class DittoManager actual constructor() {
+actual open class Ditto actual constructor() {
     init {
-        println("DittoManager init")
+        println("Ditto (android) init")
     }
 
     private val dependencies = DefaultAndroidDittoDependencies(getKoin().get())

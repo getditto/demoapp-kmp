@@ -1,5 +1,5 @@
 class Greeting(
-    private val dittoManager: DittoManager,
+    private val dittoManager: Ditto,
 ) {
     private val platform: Platform = getPlatform()
 

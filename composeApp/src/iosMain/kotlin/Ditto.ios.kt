@@ -3,8 +3,6 @@ import Env.DITTO_OFFLINE_TOKEN
 import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLogger
-import cocoapods.DittoObjC.DITPeer
-import cocoapods.DittoObjC.DITPresenceGraph
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
@@ -12,9 +10,9 @@ import platform.Foundation.NSError
 
 @OptIn(ExperimentalForeignApi::class)
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual open class DittoManager actual constructor() {
+actual open class Ditto actual constructor() {
     init {
-        println("DittoManager init")
+        println("Ditto (ios) init")
     }
 
     private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)

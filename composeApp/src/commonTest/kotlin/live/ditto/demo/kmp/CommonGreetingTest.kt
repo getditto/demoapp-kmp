@@ -1,11 +1,11 @@
 package live.ditto.demo.kmp
 
-import DittoManager
+import Ditto
 import Greeting
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-object MockDitto : DittoManager() {
+object MockDitto : Ditto() {
     override val version = "0.0.0"
 
     override fun startSync() { /* no-op */ }
