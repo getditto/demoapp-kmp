@@ -51,6 +51,10 @@ actual open class Ditto actual constructor() {
         }
     }
 
+    actual open fun stopSync() {
+        ditto.stopSync()
+    }
+
     companion object {
         const val TAG = "DittoManager"
     }

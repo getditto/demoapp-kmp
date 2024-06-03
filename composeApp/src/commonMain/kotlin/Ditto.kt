@@ -4,4 +4,6 @@ expect open class Ditto() {
     open val presence: DittoPresence
 
     open fun startSync()
+
+    open fun stopSync()
 }

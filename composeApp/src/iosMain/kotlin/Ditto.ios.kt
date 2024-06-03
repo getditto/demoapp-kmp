@@ -39,4 +39,8 @@ actual open class Ditto actual constructor() {
             startSync(errorPtr)
         }
     }
+
+    actual open fun stopSync() {
+        ditto.stopSync()
+    }
 }
