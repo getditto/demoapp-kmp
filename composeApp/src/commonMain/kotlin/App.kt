@@ -1,17 +1,21 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement.Center
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ditto_kmp.composeapp.generated.resources.Res
 import com.composegears.tiamat.Navigation
@@ -27,10 +31,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    val ditto = remember { Ditto() }
-    val platform = remember { getPlatform() }
+    val vm = remember { MainViewModel() }
 
     val versionInfoScreen by navDestination<Unit> {
+        val platform = remember { getPlatform() }
         MaterialTheme {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -39,7 +43,7 @@ fun App() {
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text("Running on ${platform.name}")
-                Text("Ditto ${ditto.version}")
+                Text("Ditto ${vm.version}")
             }
         }
     }
@@ -53,18 +57,57 @@ fun App() {
             }
         }
 
+        val customButtonColors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.DarkGray,
+            contentColor = Color.White,
+            disabledBackgroundColor = Color.LightGray,
+            disabledContentColor = Color.Black,
+        )
+
         MaterialTheme {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                }
-
-                Button(onClick = { ditto.startSync() }) {
-                    Text("Start Sync")
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Row(Modifier.fillMaxWidth()) {
+                        Button(
+                            onClick = { vm.toggleSync() },
+                            modifier = Modifier.weight(1f),
+                            colors = customButtonColors,
+                        ) {
+                            Text("🚦️")
+                        }
+                        Button(
+                            onClick = {},
+                            modifier = Modifier.weight(1f),
+                            colors = customButtonColors,
+                        ) {
+                            Text("🟢")
+                        }
+                        Button(
+                            onClick = {},
+                            modifier = Modifier.weight(1f),
+                            colors = customButtonColors,
+                        ) {
+                            Text("🟠")
+                        }
+                        Button(
+                            onClick = {},
+                            modifier = Modifier.weight(1f),
+                            colors = customButtonColors,
+                        ) {
+                            Text("🔵")
+                        }
+                        Button(
+                            onClick = {},
+                            modifier = Modifier.weight(1f),
+                            colors = customButtonColors,
+                        ) {
+                            Text("🟣")
+                        }
+                    }
                 }
 
                 PresenceView(
-                    ditto = ditto,
+                    ditto = vm.ditto,
                 )
             }
         }
