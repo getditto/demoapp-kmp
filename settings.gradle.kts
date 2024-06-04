@@ -27,5 +27,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KotlinMultipeer"
+rootProject.name = "ditto-kmp"
 include(":composeApp")

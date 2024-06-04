@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import kotlinmultipeer.composeapp.generated.resources.Res
-import kotlinmultipeer.composeapp.generated.resources.compose_multiplatform
+import ditto_kmp.composeapp.generated.resources.Res
+import ditto_kmp.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

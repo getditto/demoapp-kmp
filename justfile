@@ -36,6 +36,7 @@ clean:
 install:
     pod install \
         --project-directory=iosApp/
+    ./gradlew :composeApp:podInstallSyntheticIos
 
 build:
     ./gradlew :composeApp:assemble
