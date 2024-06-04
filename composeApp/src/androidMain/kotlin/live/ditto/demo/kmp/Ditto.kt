@@ -1,6 +1,5 @@
 package live.ditto.demo.kmp
 
-import Env
 import android.util.Log
 import live.ditto.Ditto
 import live.ditto.DittoConnectionRequestAuthorization.Allow

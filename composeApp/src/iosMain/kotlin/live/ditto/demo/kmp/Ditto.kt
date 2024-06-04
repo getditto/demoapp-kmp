@@ -1,6 +1,5 @@
 package live.ditto.demo.kmp
 
-import Env
 import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLogger

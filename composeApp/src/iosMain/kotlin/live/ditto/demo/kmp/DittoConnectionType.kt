@@ -1,7 +1,6 @@
 package live.ditto.demo.kmp
 
 import cocoapods.DittoObjC.DITConnectionType
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.serialization.Serializable
 import live.ditto.demo.kmp.DittoConnectionType.AccessPoint
 import live.ditto.demo.kmp.DittoConnectionType.Bluetooth
@@ -16,7 +15,6 @@ enum class DittoConnectionType {
     WebSocket,
 }
 
-@OptIn(ExperimentalForeignApi::class)
 fun DITConnectionType.asModel(): DittoConnectionType =
     when (this) {
         1UL -> Bluetooth

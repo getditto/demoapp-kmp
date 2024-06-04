@@ -158,8 +158,7 @@ tasks {
 
     val envTask by registering(EnvGradleTask::class) {
         className = "Env"
-        packageName = ""
-        sourceDir = file("src/commonMain/kotlin")
+        packageName = "live.ditto.demo.kmp"
         DEBUG = true
         VERSION = project.version as String
         DITTO_APP_ID = env["DITTO_APP_ID"] as String
@@ -187,6 +186,6 @@ tasks {
 
     clean {
         // Remove generated Env.kt file
-        delete += listOf("$rootDir/composeApp/src/commonMain/kotlin/Env.kt")
+        delete += listOf("$rootDir/composeApp/src/commonMain/kotlin/live/ditto/demo/kmp/Env.kt")
     }
 }
