@@ -1,3 +1,5 @@
+package live.ditto.demo.kmp
+
 import android.os.Build
 
 class AndroidPlatform : Platform {

@@ -1,10 +1,12 @@
-import DittoConnectionType.AccessPoint
-import DittoConnectionType.Bluetooth
-import DittoConnectionType.P2PWiFi
-import DittoConnectionType.WebSocket
+package live.ditto.demo.kmp
+
 import cocoapods.DittoObjC.DITConnectionType
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.serialization.Serializable
+import live.ditto.demo.kmp.DittoConnectionType.AccessPoint
+import live.ditto.demo.kmp.DittoConnectionType.Bluetooth
+import live.ditto.demo.kmp.DittoConnectionType.P2PWiFi
+import live.ditto.demo.kmp.DittoConnectionType.WebSocket
 
 @Serializable
 enum class DittoConnectionType {

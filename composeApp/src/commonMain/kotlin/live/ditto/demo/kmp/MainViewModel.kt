@@ -1,3 +1,5 @@
+package live.ditto.demo.kmp
+
 class MainViewModel {
     val ditto = Ditto()
 

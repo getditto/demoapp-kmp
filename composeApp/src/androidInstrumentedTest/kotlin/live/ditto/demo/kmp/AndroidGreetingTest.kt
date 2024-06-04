@@ -1,6 +1,5 @@
 package live.ditto.demo.kmp
 
-import Greeting
 import org.junit.Test
 import kotlin.test.assertTrue
 

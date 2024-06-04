@@ -1,6 +1,5 @@
 package live.ditto.demo.kmp
 
-import Greeting
 import org.junit.Assert
 import org.junit.Test
 

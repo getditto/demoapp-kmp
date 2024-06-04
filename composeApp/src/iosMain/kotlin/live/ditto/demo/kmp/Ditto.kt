@@ -1,5 +1,6 @@
-import Env.DITTO_APP_ID
-import Env.DITTO_OFFLINE_TOKEN
+package live.ditto.demo.kmp
+
+import Env
 import cocoapods.DittoObjC.DITDitto
 import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLogger
@@ -15,12 +16,12 @@ actual open class Ditto actual constructor() {
         println("Ditto (ios) init")
     }
 
-    private val identity = DITIdentity(offlinePlaygroundWithAppID = DITTO_APP_ID)
+    private val identity = DITIdentity(offlinePlaygroundWithAppID = Env.DITTO_APP_ID)
     private val ditto =
         DITDitto(identity).also {
             DITLogger.enabled = true
             DITLogger.minimumLogLevel = 3UL // DITLogLevel.Info
-            it.setOfflineOnlyLicenseToken(DITTO_OFFLINE_TOKEN, error = null)
+            it.setOfflineOnlyLicenseToken(Env.DITTO_OFFLINE_TOKEN, error = null)
         }
 
     actual open val version =

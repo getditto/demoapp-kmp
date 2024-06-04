@@ -1,3 +1,5 @@
+package live.ditto.demo.kmp
+
 import cocoapods.DittoObjC.DITConnection
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.serialization.Serializable

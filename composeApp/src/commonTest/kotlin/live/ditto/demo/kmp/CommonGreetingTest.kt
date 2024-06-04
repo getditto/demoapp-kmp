@@ -1,7 +1,5 @@
 package live.ditto.demo.kmp
 
-import Ditto
-import Greeting
 import kotlin.test.Test
 import kotlin.test.assertTrue
 

@@ -1,3 +1,5 @@
+package live.ditto.demo.kmp
+
 import android.util.Log
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

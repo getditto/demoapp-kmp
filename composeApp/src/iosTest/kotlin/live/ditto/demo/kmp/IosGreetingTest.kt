@@ -1,6 +1,5 @@
-package live.ditto.demo.kotlinmultipeer
+package live.ditto.demo.kmp
 
-import Greeting
 import kotlin.test.Test
 import kotlin.test.assertTrue
 

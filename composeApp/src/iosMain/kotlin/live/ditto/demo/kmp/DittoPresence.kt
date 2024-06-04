@@ -1,3 +1,5 @@
+package live.ditto.demo.kmp
+
 import cocoapods.DittoObjC.DITConnection
 import cocoapods.DittoObjC.DITPeer
 import cocoapods.DittoObjC.DITPresence

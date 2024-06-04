@@ -1,3 +1,5 @@
+package live.ditto.demo.kmp
+
 import cocoapods.DittoObjC.DITAddress
 import cocoapods.DittoObjC.pubkey
 import cocoapods.DittoObjC.siteID
