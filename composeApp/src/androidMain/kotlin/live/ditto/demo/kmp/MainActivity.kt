@@ -1,4 +1,4 @@
-package live.ditto.demo.kotlinmultipeer
+package live.ditto.demo.kmp
 
 import App
 import android.os.Bundle

@@ -67,7 +67,7 @@
     </method>
   </configuration>
   <configuration default="false" name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-    <module name="KotlinMultipeer.composeApp.main" />
+    <module name="ditto-kmp.composeApp.main" />
     <option name="DEPLOY" value="true" />
     <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
     <option name="DEPLOY_AS_INSTANT" value="false" />

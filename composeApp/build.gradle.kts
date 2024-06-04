@@ -94,7 +94,7 @@ kotlin {
 }
 
 android {
-    namespace = "live.ditto.demo.kotlinmultipeer"
+    namespace = "live.ditto.demo.kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
