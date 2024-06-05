@@ -47,8 +47,8 @@ kotlin {
             @OptIn(ExperimentalKotlinGradlePluginApi::class)
             transitiveExport = true
         }
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        summary = "commonMain framework for iosApp"
+        homepage = "http://ditto.live"
         version = "1.0"
         ios.deploymentTarget = "16.0"
         podfile = project.file("../iosApp/Podfile")
