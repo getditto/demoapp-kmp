@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -47,12 +48,6 @@ fun App() {
     val mainScreen by navDestination<Unit> {
         val navController = navController()
 
-        Column {
-            Button(onClick = { navController.navigate(versionInfoScreen) }) {
-                Text("ℹ️")
-            }
-        }
-
         val customButtonColors = ButtonDefaults.buttonColors(
             backgroundColor = Color.DarkGray,
             contentColor = Color.White,
@@ -61,50 +56,39 @@ fun App() {
         )
 
         MaterialTheme {
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    Row(Modifier.fillMaxWidth()) {
-                        Button(
-                            onClick = { vm.toggleSync() },
-                            modifier = Modifier.weight(1f),
-                            colors = customButtonColors,
-                        ) {
-                            Text("🚦️")
-                        }
-                        Button(
-                            onClick = {},
-                            modifier = Modifier.weight(1f),
-                            colors = customButtonColors,
-                        ) {
-                            Text("🟢")
-                        }
-                        Button(
-                            onClick = {},
-                            modifier = Modifier.weight(1f),
-                            colors = customButtonColors,
-                        ) {
-                            Text("🟠")
-                        }
-                        Button(
-                            onClick = {},
-                            modifier = Modifier.weight(1f),
-                            colors = customButtonColors,
-                        ) {
-                            Text("🔵")
-                        }
-                        Button(
-                            onClick = {},
-                            modifier = Modifier.weight(1f),
-                            colors = customButtonColors,
-                        ) {
-                            Text("🟣")
-                        }
-                    }
-                }
-
+            Column(
+                Modifier.fillMaxWidth(),
+                horizontalAlignment = CenterHorizontally,
+            ) {
                 PresenceView(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.5f),
                     ditto = vm.ditto,
                 )
+
+                GameBoardView(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.5f),
+                    ditto = vm.ditto,
+                )
+
+                Spacer(Modifier.height(32.dp))
+
+                Row {
+                    Button(onClick = { navController.navigate(versionInfoScreen) }) {
+                        Text("ℹ️")
+                    }
+                    Spacer(
+                        modifier = Modifier.weight(1f),
+                    )
+                    Button(
+                        onClick = { vm.toggleSync() },
+                    ) {
+                        Text("Toggle Sync️")
+                    }
+                }
             }
         }
     }
