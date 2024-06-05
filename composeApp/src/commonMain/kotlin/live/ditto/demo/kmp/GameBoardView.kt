@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -12,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -44,21 +46,21 @@ fun GameBoardView(
         Row {
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("1")
             }
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("2")
             }
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("3")
@@ -67,21 +69,21 @@ fun GameBoardView(
         Row {
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("4")
             }
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("5")
             }
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("6")
@@ -90,21 +92,21 @@ fun GameBoardView(
         Row {
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("7")
             }
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("8")
             }
             Button(
                 onClick = { },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).height(64.dp),
                 colors = customButtonColors,
             ) {
                 Text("9")
