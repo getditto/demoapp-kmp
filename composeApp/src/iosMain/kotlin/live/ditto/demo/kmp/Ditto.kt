@@ -6,6 +6,7 @@ import cocoapods.DittoObjC.DITIdentity
 import cocoapods.DittoObjC.DITLiveQuery
 import cocoapods.DittoObjC.DITLogger
 import cocoapods.DittoObjC.DITSubscription
+import cocoapods.DittoObjC.DITWriteStrategy
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
@@ -86,4 +87,19 @@ actual open class Ditto actual constructor() {
             print("Observer started")
             awaitClose {}
         }
+
+    actual open fun seedInitialDocument() {
+        val initialDocument: Map<*, *> = GameState().toMap()
+        val writeStrategy: DITWriteStrategy = 3UL // InsertDefaultIfAbsent
+        val errorPtr: CPointer<ObjCObjectVar<NSError?>>? = null
+
+        // FIXME: upsert type not working
+//        ditto.store
+//            .collection(COLLECTION_NAME)
+//            .upsert(
+//                value = initialDocument,
+//                writeStrategy = writeStrategy,
+//                error = errorPtr,
+//            )
+    }
 }

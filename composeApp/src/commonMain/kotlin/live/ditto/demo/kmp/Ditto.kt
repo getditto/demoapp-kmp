@@ -15,4 +15,6 @@ expect open class Ditto() {
     open fun stopSync()
 
     open fun startObserver(): Flow<GameState>
+
+    open fun seedInitialDocument()
 }

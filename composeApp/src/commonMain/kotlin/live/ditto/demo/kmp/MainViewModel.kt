@@ -2,10 +2,13 @@ package live.ditto.demo.kmp
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import live.ditto.demo.kmp.GameViewModel.GameColor
 
 class MainViewModel {
     val ditto = Ditto()
+
+    init {
+        ditto.seedInitialDocument()
+    }
 
     val version: String
         get() = ditto.version

@@ -12,6 +12,7 @@ import live.ditto.DittoLiveQuery
 import live.ditto.DittoLogLevel.INFO
 import live.ditto.DittoLogger
 import live.ditto.DittoSubscription
+import live.ditto.DittoWriteStrategy.InsertDefaultIfAbsent
 import live.ditto.android.DefaultAndroidDittoDependencies
 import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent
@@ -101,6 +102,16 @@ actual open class Ditto actual constructor() {
             Log.i(TAG, "Observer started")
             awaitClose {}
         }
+
+    actual open fun seedInitialDocument() {
+        ditto.store
+            .collection(COLLECTION_NAME)
+            .upsert(
+                value = GameState().toMap(),
+                writeStrategy = InsertDefaultIfAbsent,
+            )
+        Log.i(TAG, "seedInitialDocument")
+    }
 
     companion object {
         const val TAG = "Ditto"
