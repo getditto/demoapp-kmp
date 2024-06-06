@@ -80,15 +80,6 @@ fun App() {
                 Spacer(Modifier.height(32.dp))
 
                 Row {
-                    Button(
-                        onClick = { navController.navigate(versionInfoScreen) },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.White,
-                            backgroundColor = Color.White
-                        ),
-                    ) {
-                        Text("ℹ️")
-                    }
                     Spacer(
                         modifier = Modifier.weight(1f),
                     )
