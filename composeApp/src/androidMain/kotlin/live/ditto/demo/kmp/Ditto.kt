@@ -1,12 +1,19 @@
 package live.ditto.demo.kmp
 
 import android.util.Log
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import live.ditto.Ditto
 import live.ditto.DittoConnectionRequestAuthorization.Allow
+import live.ditto.DittoDocumentId
 import live.ditto.DittoIdentity.OfflinePlayground
+import live.ditto.DittoLiveQuery
 import live.ditto.DittoLogLevel.INFO
 import live.ditto.DittoLogger
+import live.ditto.DittoSubscription
 import live.ditto.android.DefaultAndroidDittoDependencies
+import live.ditto.demo.kmp.GameViewModel.GameState
 import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent
 
@@ -31,6 +38,9 @@ actual open class Ditto actual constructor() {
         sdkVersion: ${Ditto.VERSION}
         """.trimIndent()
 
+    private var subscription: DittoSubscription? = null
+    private var observer: DittoLiveQuery? = null
+
     actual open val presence = DittoPresence(ditto.presence)
 
     actual open fun startSync() {
@@ -49,15 +59,51 @@ actual open class Ditto actual constructor() {
             }
             startSync()
             Log.i(TAG, "Sync started")
+            startSubscription()
         }
     }
 
     actual open fun stopSync() {
         ditto.stopSync()
         Log.i(TAG, "Sync stopped")
+        stopSubscription()
     }
 
+    /**
+     * Subscribes to all changes to a single document.
+     */
+    private fun startSubscription() {
+        subscription = ditto.store
+            .collection(COLLECTION_NAME)
+            .findById(DittoDocumentId(DOCUMENT_ID))
+            .subscribe()
+        Log.i(TAG, "Subscription started")
+    }
+
+    private fun stopSubscription() {
+        subscription?.close()
+        subscription = null
+        Log.i(TAG, "Subscription stopped")
+    }
+
+    actual open fun startObserver(): Flow<GameState> =
+        callbackFlow {
+            observer = ditto.store
+                .collection(COLLECTION_NAME)
+                .findById(DittoDocumentId(DOCUMENT_ID))
+                .observeLocal { doc, event ->
+                    Log.i(TAG, "Observer received $event for $doc")
+                    doc?.value?.let {
+                        val state = GameState.fromMap(it)
+                        println("GameState: $state")
+                        trySend(state)
+                    }
+                }
+            Log.i(TAG, "Observer started")
+            awaitClose {}
+        }
+
     companion object {
-        const val TAG = "DittoManager"
+        const val TAG = "Ditto"
     }
 }

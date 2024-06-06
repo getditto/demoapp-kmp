@@ -1,11 +1,8 @@
 package live.ditto.demo.kmp
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.stateIn
 
 class GameViewModel(
@@ -48,6 +45,17 @@ class GameViewModel(
             Colors.WHITE,
         )
     ) {
+        companion object {
+            /** Deserialize GameState from a Map. */
+            fun fromMap(map: Map<String, Any?>): GameState {
+                val list = mutableListOf<Colors>()
+                for (i in 0..8) {
+                    val stringColor = map["$i"] as String
+                    list.add(Colors.valueOf(stringColor))
+                }
+                return GameState(list)
+            }
+        }
         fun buttonTapped(buttonNumber: Int, newColor: Colors) {
             currentState[buttonNumber] = newColor
             observer(this)
@@ -66,27 +74,15 @@ class GameViewModel(
 
     private val _gameState = GameState()
 
-    var gameState: StateFlow<GameState> =
-        callbackFlow {
-            _gameState.observe {
-                println("GameState: ${it}")
-                trySend(it)
-            }
+    private val dittoState = ditto.startObserver()
 
-            awaitClose {}
-        }
+    var gameState: StateFlow<GameState> =
+        dittoState
             .stateIn(
                 coroutineScope,
                 SharingStarted.WhileSubscribed(stopTimeoutMillis = 1000L),
                 _gameState,
             )
-
-//    val gameStateFlow =
-//        _gameState.stateIn(
-//            coroutineScope,
-//            SharingStarted.WhileSubscribed(stopTimeoutMillis = 1000L),
-//            GameState(),
-//        )
 
     companion object {
         const val TAG = "GameViewModel"
