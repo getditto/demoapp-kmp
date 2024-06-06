@@ -49,11 +49,13 @@ actual open class Ditto actual constructor() {
             startSync(errorPtr)
         }
         println("Sync started")
+        startSubscription()
     }
 
     actual open fun stopSync() {
         ditto.stopSync()
         println("Sync stopped")
+        stopSubscription()
     }
 
     private fun startSubscription() {
