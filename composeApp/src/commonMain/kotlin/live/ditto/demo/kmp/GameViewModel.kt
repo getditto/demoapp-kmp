@@ -63,6 +63,14 @@ class GameViewModel(
             }
         }
 
+        fun toMap(): Map<String, Any?> {
+            val map = mutableMapOf<String, Any?>()
+            currentState.toTypedArray().forEachIndexed { index, color ->
+                map["$index"] = color.name
+            }
+            return map
+        }
+
         fun buttonTapped(buttonNumber: Int, newColor: GameColor) {
             currentState[buttonNumber] = newColor
             observer(this)
