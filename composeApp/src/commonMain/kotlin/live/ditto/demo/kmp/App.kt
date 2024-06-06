@@ -1,7 +1,6 @@
 package live.ditto.demo.kmp
 
 import androidx.compose.foundation.layout.Arrangement.Center
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +13,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -23,12 +23,14 @@ import com.composegears.tiamat.Navigation
 import com.composegears.tiamat.navController
 import com.composegears.tiamat.navDestination
 import com.composegears.tiamat.rememberNavController
+import live.ditto.demo.kmp.GameViewModel.GameColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
-    val vm = remember { MainViewModel() }
+    val vm = MainViewModel()
+    val myColor = remember { mutableStateOf(vm.myColor) }
 
     val versionInfoScreen by navDestination<Unit> {
         val platform = remember { getPlatform() }
@@ -48,13 +50,6 @@ fun App() {
     val mainScreen by navDestination<Unit> {
         val navController = navController()
 
-        val customButtonColors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.DarkGray,
-            contentColor = Color.White,
-            disabledBackgroundColor = Color.LightGray,
-            disabledContentColor = Color.Black,
-        )
-
         MaterialTheme {
             Column(
                 Modifier.fillMaxWidth(),
@@ -67,6 +62,8 @@ fun App() {
                     ditto = vm.ditto,
                 )
 
+                Spacer(Modifier.height(32.dp))
+
                 GameBoardView(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -77,14 +74,31 @@ fun App() {
                 Spacer(Modifier.height(32.dp))
 
                 Row {
-                    Button(onClick = { navController.navigate(versionInfoScreen) }) {
+                    Button(
+                        onClick = { navController.navigate(versionInfoScreen) },
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = Color.White,
+                            backgroundColor = Color.White
+                        ),
+                    ) {
                         Text("ℹ️")
+                    }
+                    Button(
+                        onClick = { myColor.value = vm.randomColor() },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = myColor.value.color
+                        ),
+                    ) {
+                        Text("")
                     }
                     Spacer(
                         modifier = Modifier.weight(1f),
                     )
                     Button(
                         onClick = { vm.toggleSync() },
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = Color.White,
+                        ),
                     ) {
                         Text("Toggle Sync️")
                     }

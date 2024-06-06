@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import live.ditto.demo.kmp.GameViewModel.Colors.RED
+import live.ditto.demo.kmp.GameViewModel.GameColor.RED
 import live.ditto.demo.kmp.GameViewModel.GameState
 
 @Composable

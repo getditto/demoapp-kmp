@@ -1,5 +1,7 @@
 package live.ditto.demo.kmp
 
+import live.ditto.demo.kmp.GameViewModel.GameColor
+
 class MainViewModel {
     val ditto = Ditto()
 
@@ -13,4 +15,12 @@ class MainViewModel {
             true -> ditto.stopSync()
             false -> ditto.startSync()
         }
+
+    var myColor = randomColor()
+        private set
+
+    fun randomColor(): GameColor {
+        myColor = GameColor.entries.toTypedArray().random()
+        return myColor
+    }
 }

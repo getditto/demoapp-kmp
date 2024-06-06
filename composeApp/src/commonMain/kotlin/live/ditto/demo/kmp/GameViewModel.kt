@@ -1,5 +1,6 @@
 package live.ditto.demo.kmp
 
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -9,54 +10,57 @@ class GameViewModel(
     ditto: Ditto,
     coroutineScope: CoroutineScope
 ) {
-    enum class Colors {
-        RED,
-        ORANGE,
-        YELLOW,
-        GREEN,
-        BLUE,
-        PURPLE,
-        BLACK,
-        WHITE,
+    enum class GameColor(
+        val color: Color
+    ) {
+        RED(Color.Red),
+        YELLOW(Color.Yellow),
+        GREEN(Color.Green),
+        BLUE(Color.Blue),
+        CYAN(Color.Cyan),
+        MAGENTA(Color.Magenta),
+        BLACK(Color.Black),
+        WHITE(Color.White),
+        GRAY(Color.Gray),
     }
 
     private val startState = listOf(
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
-        Colors.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
+        GameColor.WHITE,
     )
 
     data class GameState(
-        var currentState: MutableList<Colors> = mutableListOf(
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
-            Colors.WHITE,
+        var currentState: MutableList<GameColor> = mutableListOf(
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
+            GameColor.WHITE,
         )
     ) {
         companion object {
             /** Deserialize GameState from a Map. */
             fun fromMap(map: Map<String, Any?>): GameState {
-                val list = mutableListOf<Colors>()
+                val list = mutableListOf<GameColor>()
                 for (i in 0..8) {
                     val stringColor = map["$i"] as String
-                    list.add(Colors.valueOf(stringColor))
+                    list.add(GameColor.valueOf(stringColor))
                 }
                 return GameState(list)
             }
         }
-        fun buttonTapped(buttonNumber: Int, newColor: Colors) {
+        fun buttonTapped(buttonNumber: Int, newColor: GameColor) {
             currentState[buttonNumber] = newColor
             observer(this)
         }
@@ -69,7 +73,7 @@ class GameViewModel(
         }
     }
 
-    fun buttonTapped(buttonNumber: Int, newColor: Colors) =
+    fun buttonTapped(buttonNumber: Int, newColor: GameColor) =
         _gameState.buttonTapped(buttonNumber, newColor)
 
     private val _gameState = GameState()
