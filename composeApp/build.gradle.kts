@@ -113,7 +113,7 @@ android {
     android.buildFeatures.buildConfig = true
 
     defaultConfig {
-        applicationId = "live.ditto.demo.kotlinmultipeer"
+        applicationId = "live.ditto.demo.kmp"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

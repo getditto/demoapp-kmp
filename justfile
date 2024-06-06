@@ -13,13 +13,13 @@ plugins:
 targets:
     xcodebuild \
         -workspace iosApp/iosApp.xcworkspace \
-        -scheme KotlinMultipeer \
+        -scheme 'Ditto KMP' \
         -list
 
 destinations:
     xcodebuild \
         -workspace iosApp/iosApp.xcworkspace \
-        -scheme KotlinMultipeer \
+        -scheme 'Ditto KMP' \
         -showdestinations
 
 lint:
