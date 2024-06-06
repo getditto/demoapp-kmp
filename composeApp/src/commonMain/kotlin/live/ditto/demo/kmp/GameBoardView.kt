@@ -2,7 +2,6 @@ package live.ditto.demo.kmp
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Button
@@ -17,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import live.ditto.demo.kmp.GameViewModel.Colors.RED
 import live.ditto.demo.kmp.GameViewModel.GameState
 
 @Composable
@@ -28,40 +28,40 @@ fun GameBoardView(
 ) {
     val gameState: StateFlow<GameState> = viewModel.gameState
 
-    val customButtonColors = ButtonDefaults.buttonColors(
+    LaunchedEffect(key1 = gameState) {
+        launch {
+            gameState.collect { game ->
+            }
+        }
+    }
+
+    val startingButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = Color.White,
         contentColor = Color.Black,
         disabledBackgroundColor = Color.LightGray,
         disabledContentColor = Color.Black,
     )
 
-    LaunchedEffect(key1 = gameState) {
-        launch {
-            gameState.collect { json ->
-            }
-        }
-    }
-
     Column {
         Row {
             Button(
-                onClick = { },
+                onClick = { viewModel.buttonTapped(0, RED) },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("1")
             }
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("2")
             }
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("3")
             }
@@ -70,21 +70,21 @@ fun GameBoardView(
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("4")
             }
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("5")
             }
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("6")
             }
@@ -93,21 +93,21 @@ fun GameBoardView(
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("7")
             }
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("8")
             }
             Button(
                 onClick = { },
                 modifier = Modifier.weight(1f).height(64.dp),
-                colors = customButtonColors,
+                colors = startingButtonColors,
             ) {
                 Text("9")
             }
