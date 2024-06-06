@@ -79,28 +79,37 @@ class GameViewModel(
     fun buttonTapped(buttonNumber: Int) {
         when (buttonNumber) {
             0 -> _button1Color.value = myColor
-            1 -> button2Color = myColor
-            2 -> button3Color = myColor
-            3 -> button4Color = myColor
-            4 -> button5Color = myColor
-            5 -> button6Color = myColor
-            6 -> button7Color = myColor
-            7 -> button8Color = myColor
-            8 -> button9Color = myColor
+            1 -> _button2Color.value = myColor
+            2 -> _button3Color.value = myColor
+            3 -> _button4Color.value = myColor
+            4 -> _button5Color.value = myColor
+            5 -> _button6Color.value = myColor
+            6 -> _button7Color.value = myColor
+            7 -> _button8Color.value = myColor
+            8 -> _button9Color.value = myColor
         }
         _gameState.buttonTapped(buttonNumber, myColor)
     }
 
     private var _button1Color = MutableStateFlow(WHITE)
+    private var _button2Color = MutableStateFlow(WHITE)
+    private var _button3Color = MutableStateFlow(WHITE)
+    private var _button4Color = MutableStateFlow(WHITE)
+    private var _button5Color = MutableStateFlow(WHITE)
+    private var _button6Color = MutableStateFlow(WHITE)
+    private var _button7Color = MutableStateFlow(WHITE)
+    private var _button8Color = MutableStateFlow(WHITE)
+    private var _button9Color = MutableStateFlow(WHITE)
+
     var button1Color = _button1Color.asStateFlow()
-    var button2Color = WHITE
-    var button3Color = WHITE
-    var button4Color = WHITE
-    var button5Color = WHITE
-    var button6Color = WHITE
-    var button7Color = WHITE
-    var button8Color = WHITE
-    var button9Color = WHITE
+    var button2Color = _button2Color.asStateFlow()
+    var button3Color = _button3Color.asStateFlow()
+    var button4Color = _button4Color.asStateFlow()
+    var button5Color = _button5Color.asStateFlow()
+    var button6Color = _button6Color.asStateFlow()
+    var button7Color = _button7Color.asStateFlow()
+    var button8Color = _button8Color.asStateFlow()
+    var button9Color = _button9Color.asStateFlow()
 
     private val _gameState = GameState()
 

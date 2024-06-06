@@ -34,16 +34,15 @@ fun GameBoardView(
 
     val myColor = remember { mutableStateOf(vm.myColor) }
 
-//    val button1Color = remember { mutableStateOf(vm.button1Color) }
     val button1Color by vm.button1Color.collectAsState(initial = WHITE)
-    val button2Color = remember { mutableStateOf(vm.button2Color) }
-    val button3Color = remember { mutableStateOf(vm.button3Color) }
-    val button4Color = remember { mutableStateOf(vm.button4Color) }
-    val button5Color = remember { mutableStateOf(vm.button5Color) }
-    val button6Color = remember { mutableStateOf(vm.button6Color) }
-    val button7Color = remember { mutableStateOf(vm.button7Color) }
-    val button8Color = remember { mutableStateOf(vm.button8Color) }
-    val button9Color = remember { mutableStateOf(vm.button9Color) }
+    val button2Color by vm.button2Color.collectAsState(initial = WHITE)
+    val button3Color by vm.button3Color.collectAsState(initial = WHITE)
+    val button4Color by vm.button4Color.collectAsState(initial = WHITE)
+    val button5Color by vm.button5Color.collectAsState(initial = WHITE)
+    val button6Color by vm.button6Color.collectAsState(initial = WHITE)
+    val button7Color by vm.button7Color.collectAsState(initial = WHITE)
+    val button8Color by vm.button8Color.collectAsState(initial = WHITE)
+    val button9Color by vm.button9Color.collectAsState(initial = WHITE)
 
     LaunchedEffect(key1 = gameState) {
         launch {
@@ -67,7 +66,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(1) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button2Color.value.color,
+                    backgroundColor = button2Color.color,
                 ),
             ) {
                 Text("2")
@@ -76,7 +75,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(2) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button3Color.value.color,
+                    backgroundColor = button3Color.color,
                 ),
             ) {
                 Text("3")
@@ -87,7 +86,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(3) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button4Color.value.color,
+                    backgroundColor = button4Color.color,
                 ),
             ) {
                 Text("4")
@@ -96,7 +95,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(4) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button5Color.value.color,
+                    backgroundColor = button5Color.color,
                 ),
             ) {
                 Text("5")
@@ -105,7 +104,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(5) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button6Color.value.color,
+                    backgroundColor = button6Color.color,
                 ),
             ) {
                 Text("6")
@@ -116,7 +115,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(6) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button7Color.value.color,
+                    backgroundColor = button7Color.color,
                 ),
             ) {
                 Text("7")
@@ -125,7 +124,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(7) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button8Color.value.color,
+                    backgroundColor = button8Color.color,
                 ),
             ) {
                 Text("8")
@@ -134,7 +133,7 @@ fun GameBoardView(
                 onClick = { vm.buttonTapped(8) },
                 modifier = Modifier.weight(1f).height(64.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = button9Color.value.color,
+                    backgroundColor = button9Color.color,
                 ),
             ) {
                 Text("9")
