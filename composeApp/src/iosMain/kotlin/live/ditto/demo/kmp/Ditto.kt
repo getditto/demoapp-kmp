@@ -71,24 +71,21 @@ actual open class Ditto actual constructor() {
         print("Subscription stopped")
     }
 
-    actual open fun startObserver(): Flow<GameState> {
-        val pendingQuery = ditto.store
-            .collection(COLLECTION_NAME)
-            .findByID(DITDocumentID(DOCUMENT_ID))
-
-            return callbackFlow {
-                observer = pendingQuery
-                    .observeLocal { doc, event ->
-                        println("Observer received $event for $doc")
-                        doc?.value?.let {
-                            @Suppress("UNCHECKED_CAST")
-                            val state = GameState.fromMap(it as Map<String, Any?>)
-                            println("GameState: $state")
-                            trySend(state)
-                        }
+    actual open fun startObserver(): Flow<GameState> =
+        callbackFlow {
+            observer = ditto.store
+                .collection(COLLECTION_NAME)
+                .findByID(DITDocumentID(DOCUMENT_ID))
+                .observeLocal { doc, event ->
+                    println("Observer received $event for $doc")
+                    doc?.value?.let {
+                        @Suppress("UNCHECKED_CAST")
+                        val state = GameState.fromMap(it as Map<String, Any?>)
+                        println("GameState: $state")
+                        trySend(state)
                     }
-                print("Observer started")
-                awaitClose {}
-            }
-    }
+                }
+            print("Observer started")
+            awaitClose {}
+        }
 }
