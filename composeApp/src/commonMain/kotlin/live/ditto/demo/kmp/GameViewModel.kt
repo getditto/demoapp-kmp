@@ -2,9 +2,12 @@ package live.ditto.demo.kmp
 
 import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
+import live.ditto.demo.kmp.GameViewModel.GameColor.WHITE
 
 class GameViewModel(
     ditto: Ditto,
@@ -19,34 +22,33 @@ class GameViewModel(
         BLUE(Color.Blue),
         CYAN(Color.Cyan),
         MAGENTA(Color.Magenta),
-        BLACK(Color.Black),
         WHITE(Color.White),
         GRAY(Color.Gray),
     }
 
     private val startState = listOf(
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
-        GameColor.WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
+        WHITE,
     )
 
     data class GameState(
         var currentState: MutableList<GameColor> = mutableListOf(
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
-            GameColor.WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
+            WHITE,
         )
     ) {
         companion object {
@@ -60,6 +62,7 @@ class GameViewModel(
                 return GameState(list)
             }
         }
+
         fun buttonTapped(buttonNumber: Int, newColor: GameColor) {
             currentState[buttonNumber] = newColor
             observer(this)
@@ -73,8 +76,31 @@ class GameViewModel(
         }
     }
 
-    fun buttonTapped(buttonNumber: Int, newColor: GameColor) =
-        _gameState.buttonTapped(buttonNumber, newColor)
+    fun buttonTapped(buttonNumber: Int) {
+        when (buttonNumber) {
+            0 -> _button1Color.value = myColor
+            1 -> button2Color = myColor
+            2 -> button3Color = myColor
+            3 -> button4Color = myColor
+            4 -> button5Color = myColor
+            5 -> button6Color = myColor
+            6 -> button7Color = myColor
+            7 -> button8Color = myColor
+            8 -> button9Color = myColor
+        }
+        _gameState.buttonTapped(buttonNumber, myColor)
+    }
+
+    private var _button1Color = MutableStateFlow(WHITE)
+    var button1Color = _button1Color.asStateFlow()
+    var button2Color = WHITE
+    var button3Color = WHITE
+    var button4Color = WHITE
+    var button5Color = WHITE
+    var button6Color = WHITE
+    var button7Color = WHITE
+    var button8Color = WHITE
+    var button9Color = WHITE
 
     private val _gameState = GameState()
 
@@ -87,6 +113,14 @@ class GameViewModel(
                 SharingStarted.WhileSubscribed(stopTimeoutMillis = 1000L),
                 _gameState,
             )
+
+    var myColor = randomColor()
+        private set
+
+    fun randomColor(): GameColor {
+        myColor = GameColor.entries.toTypedArray().random()
+        return myColor
+    }
 
     companion object {
         const val TAG = "GameViewModel"

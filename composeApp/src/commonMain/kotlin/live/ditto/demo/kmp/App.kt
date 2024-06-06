@@ -13,7 +13,6 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -23,14 +22,12 @@ import com.composegears.tiamat.Navigation
 import com.composegears.tiamat.navController
 import com.composegears.tiamat.navDestination
 import com.composegears.tiamat.rememberNavController
-import live.ditto.demo.kmp.GameViewModel.GameColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
     val vm = MainViewModel()
-    val myColor = remember { mutableStateOf(vm.myColor) }
 
     val versionInfoScreen by navDestination<Unit> {
         val platform = remember { getPlatform() }
@@ -82,14 +79,6 @@ fun App() {
                         ),
                     ) {
                         Text("ℹ️")
-                    }
-                    Button(
-                        onClick = { myColor.value = vm.randomColor() },
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = myColor.value.color
-                        ),
-                    ) {
-                        Text("")
                     }
                     Spacer(
                         modifier = Modifier.weight(1f),

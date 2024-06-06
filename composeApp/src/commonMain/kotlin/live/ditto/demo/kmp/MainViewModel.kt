@@ -15,12 +15,4 @@ class MainViewModel {
             true -> ditto.stopSync()
             false -> ditto.startSync()
         }
-
-    var myColor = randomColor()
-        private set
-
-    fun randomColor(): GameColor {
-        myColor = GameColor.entries.toTypedArray().random()
-        return myColor
-    }
 }
