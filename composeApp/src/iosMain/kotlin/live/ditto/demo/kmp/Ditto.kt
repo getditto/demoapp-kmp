@@ -14,6 +14,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import platform.Foundation.NSError
+import platform.Foundation.setValue
 
 @OptIn(ExperimentalForeignApi::class)
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
@@ -107,5 +108,20 @@ actual open class Ditto actual constructor() {
 
     actual open fun updateDocument(state: GameState, squareIndex: Int) {
         println("updateDocument[$squareIndex]: $state")
+
+        val updatedColor = state.squares[squareIndex].name
+
+        ditto.store
+            .collection(COLLECTION_NAME)
+            .findByID(DITDocumentID(DOCUMENT_ID))
+            .updateWithBlock { doc ->
+                val doc = doc ?: throw Error("Null document in update block")
+//                val docPath = doc.objectForKeyedSubscript(squareIndex.toString())
+//                docPath.setValue(updatedColor)
+                doc.setValue(
+                    value = updatedColor,
+                    forKeyPath = squareIndex.toString(),
+                )
+            }
     }
 }
