@@ -11,7 +11,7 @@ import live.ditto.demo.kmp.GameViewModel.GameColor.WHITE
 
 class GameViewModel(
     ditto: Ditto,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
 ) {
     enum class GameColor(
         val color: Color

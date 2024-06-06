@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,12 +23,16 @@ import com.composegears.tiamat.Navigation
 import com.composegears.tiamat.navController
 import com.composegears.tiamat.navDestination
 import com.composegears.tiamat.rememberNavController
+import kotlinx.coroutines.CoroutineScope
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.coroutines.EmptyCoroutineContext
 
 @Composable
 @Preview
 fun App() {
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
     val vm = MainViewModel()
+    val gameVm: GameViewModel = GameViewModel(vm.ditto, coroutineScope)
 
     val versionInfoScreen by navDestination<Unit> {
         val platform = remember { getPlatform() }
@@ -66,6 +71,7 @@ fun App() {
                         .fillMaxWidth()
                         .fillMaxHeight(0.5f),
                     ditto = vm.ditto,
+                    vm = gameVm,
                 )
 
                 Spacer(Modifier.height(32.dp))
