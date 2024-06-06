@@ -13,6 +13,8 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -32,6 +34,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 fun App() {
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
     val vm = MainViewModel()
+    val syncEnabled by vm.syncEnabled.collectAsState(false)
     val gameVm: GameViewModel = GameViewModel(vm.ditto, coroutineScope)
 
     val versionInfoScreen by navDestination<Unit> {
@@ -92,10 +95,12 @@ fun App() {
                     Button(
                         onClick = { vm.toggleSync() },
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.White,
+                            backgroundColor = if (syncEnabled) Color.Green else Color.Red,
                         ),
                     ) {
-                        Text("Toggle Sync️")
+                        Text(
+                            text = if (syncEnabled) "Sync Enabled️" else "Sync Disabled",
+                        )
                     }
                 }
             }
