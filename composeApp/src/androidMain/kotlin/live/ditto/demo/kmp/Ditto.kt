@@ -48,11 +48,13 @@ actual open class Ditto actual constructor() {
                 Allow
             }
             startSync()
+            Log.i(TAG, "Sync started")
         }
     }
 
     actual open fun stopSync() {
         ditto.stopSync()
+        Log.i(TAG, "Sync stopped")
     }
 
     companion object {

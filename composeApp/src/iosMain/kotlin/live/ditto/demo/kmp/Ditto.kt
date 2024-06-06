@@ -6,6 +6,7 @@ import cocoapods.DittoObjC.DITLogger
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
+import live.ditto.demo.kmp.GameViewModel.Companion.TAG
 import platform.Foundation.NSError
 
 @OptIn(ExperimentalForeignApi::class)
@@ -38,9 +39,11 @@ actual open class Ditto actual constructor() {
         with(ditto) {
             startSync(errorPtr)
         }
+        println("Sync started")
     }
 
     actual open fun stopSync() {
         ditto.stopSync()
+        println("Sync stopped")
     }
 }
