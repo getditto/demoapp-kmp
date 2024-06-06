@@ -125,7 +125,7 @@ actual open class Ditto actual constructor() {
             .collection(COLLECTION_NAME)
             .findById(DittoDocumentId(DOCUMENT_ID))
             .update { doc ->
-                val doc = doc ?: return@update
+                val doc = doc ?: throw Error("Null document in update block")
                 val mutPath = doc.get(squareIndex.toString())
                 mutPath.set(updatedColor)
             }
