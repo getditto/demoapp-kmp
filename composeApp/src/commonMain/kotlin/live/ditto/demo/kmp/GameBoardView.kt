@@ -21,7 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import live.ditto.demo.kmp.GameViewModel.GameColor.WHITE
-import live.ditto.demo.kmp.GameViewModel.GameState
 
 @Composable
 fun GameBoardView(

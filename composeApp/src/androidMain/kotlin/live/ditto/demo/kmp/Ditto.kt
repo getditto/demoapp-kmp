@@ -13,7 +13,6 @@ import live.ditto.DittoLogLevel.INFO
 import live.ditto.DittoLogger
 import live.ditto.DittoSubscription
 import live.ditto.android.DefaultAndroidDittoDependencies
-import live.ditto.demo.kmp.GameViewModel.GameState
 import live.ditto.transports.DittoSyncPermissions
 import org.koin.java.KoinJavaComponent
 

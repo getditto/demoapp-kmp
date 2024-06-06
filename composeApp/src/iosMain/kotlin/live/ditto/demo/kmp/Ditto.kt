@@ -12,8 +12,6 @@ import kotlinx.cinterop.ObjCObjectVar
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import live.ditto.demo.kmp.GameViewModel.Companion.TAG
-import live.ditto.demo.kmp.GameViewModel.GameState
 import platform.Foundation.NSError
 
 @OptIn(ExperimentalForeignApi::class)
