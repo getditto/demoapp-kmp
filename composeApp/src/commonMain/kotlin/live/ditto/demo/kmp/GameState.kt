@@ -5,7 +5,7 @@ import live.ditto.demo.kmp.GameViewModel.GameColor.WHITE
 
 data class GameState(
     val _id: String = DOCUMENT_ID,
-    private var squares: MutableList<GameColor> = mutableListOf(
+    var squares: MutableList<GameColor> = mutableListOf(
         WHITE,
         WHITE,
         WHITE,
@@ -45,6 +45,7 @@ data class GameState(
 
     fun toMap(): Map<String, Any?> {
         val map = mutableMapOf<String, Any?>()
+        map["_id"] = _id
         squares.toTypedArray().forEachIndexed { index, color ->
             map["$index"] = color.name
         }

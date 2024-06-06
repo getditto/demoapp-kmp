@@ -29,6 +29,7 @@ fun GameBoardView(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     vm: GameViewModel = GameViewModel(ditto, coroutineScope),
 ) {
+    // Not used yet
     val gameState: StateFlow<GameState> = vm.gameState
 
     val myColor = remember { mutableStateOf(vm.myColor) }

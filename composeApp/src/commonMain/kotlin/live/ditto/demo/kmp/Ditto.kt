@@ -17,4 +17,6 @@ expect open class Ditto() {
     open fun startObserver(): Flow<GameState>
 
     open fun seedInitialDocument()
+
+    open fun updateDocument(state: GameState, squareIndex: Int)
 }

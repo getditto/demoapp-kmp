@@ -102,4 +102,8 @@ actual open class Ditto actual constructor() {
 //                error = errorPtr,
 //            )
     }
+
+    actual open fun updateDocument(state: GameState, squareIndex: Int) {
+        println("updateDocument[$squareIndex]: $state")
+    }
 }

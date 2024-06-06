@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.stateIn
 import live.ditto.demo.kmp.GameViewModel.GameColor.WHITE
 
 class GameViewModel(
-    ditto: Ditto,
+    val ditto: Ditto,
     coroutineScope: CoroutineScope,
 ) {
     enum class GameColor(
@@ -26,8 +26,8 @@ class GameViewModel(
         GRAY(Color.Gray),
     }
 
-    fun buttonTapped(buttonNumber: Int) {
-        when (buttonNumber) {
+    fun buttonTapped(squareIndex: Int) {
+        when (squareIndex) {
             0 -> _button1Color.value = myColor
             1 -> _button2Color.value = myColor
             2 -> _button3Color.value = myColor
@@ -38,7 +38,9 @@ class GameViewModel(
             7 -> _button8Color.value = myColor
             8 -> _button9Color.value = myColor
         }
-        _gameState.buttonTapped(buttonNumber, myColor)
+        _gameState.buttonTapped(squareIndex, myColor)
+
+        ditto.updateDocument(_gameState, squareIndex)
     }
 
     private var _button1Color = MutableStateFlow(WHITE)

@@ -104,13 +104,31 @@ actual open class Ditto actual constructor() {
         }
 
     actual open fun seedInitialDocument() {
+        val initialDocument = GameState().toMap()
+        Log.i(TAG, "seedInitialDocument: $initialDocument")
+
         ditto.store
             .collection(COLLECTION_NAME)
             .upsert(
-                value = GameState().toMap(),
+                value = initialDocument,
                 writeStrategy = InsertDefaultIfAbsent,
             )
         Log.i(TAG, "seedInitialDocument")
+    }
+
+    actual open fun updateDocument(state: GameState, squareIndex: Int) {
+        Log.i(TAG, "updateDocument[$squareIndex]: $state")
+
+        val updatedColor = state.squares[squareIndex].name
+
+        ditto.store
+            .collection(COLLECTION_NAME)
+            .findById(DittoDocumentId(DOCUMENT_ID))
+            .update { doc ->
+                val doc = doc ?: return@update
+                val mutPath = doc.get(squareIndex.toString())
+                mutPath.set(updatedColor)
+            }
     }
 
     companion object {
