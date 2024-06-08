@@ -47,8 +47,8 @@ kotlin {
             @OptIn(ExperimentalKotlinGradlePluginApi::class)
             transitiveExport = true
         }
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        summary = "commonMain framework for iosApp"
+        homepage = "http://ditto.live"
         version = "1.0"
         ios.deploymentTarget = "16.0"
         podfile = project.file("../iosApp/Podfile")
@@ -61,6 +61,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.koin.core)
+
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(compose.foundation)
@@ -70,6 +71,7 @@ kotlin {
             implementation(libs.compose.webview.multiplatform)
             implementation(libs.kase64)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.tiamat)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -111,7 +113,7 @@ android {
     android.buildFeatures.buildConfig = true
 
     defaultConfig {
-        applicationId = "live.ditto.demo.kotlinmultipeer"
+        applicationId = "live.ditto.demo.kmp"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -156,8 +158,7 @@ tasks {
 
     val envTask by registering(EnvGradleTask::class) {
         className = "Env"
-        packageName = ""
-        sourceDir = file("src/commonMain/kotlin")
+        packageName = "live.ditto.demo.kmp"
         DEBUG = true
         VERSION = project.version as String
         DITTO_APP_ID = env["DITTO_APP_ID"] as String
@@ -185,6 +186,6 @@ tasks {
 
     clean {
         // Remove generated Env.kt file
-        delete += listOf("$rootDir/composeApp/src/commonMain/kotlin/Env.kt")
+        delete += listOf("$rootDir/composeApp/src/commonMain/kotlin/live/ditto/demo/kmp/Env.kt")
     }
 }

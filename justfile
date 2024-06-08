@@ -13,13 +13,13 @@ plugins:
 targets:
     xcodebuild \
         -workspace iosApp/iosApp.xcworkspace \
-        -scheme KotlinMultipeer \
+        -scheme 'Ditto KMP' \
         -list
 
 destinations:
     xcodebuild \
         -workspace iosApp/iosApp.xcworkspace \
-        -scheme KotlinMultipeer \
+        -scheme 'Ditto KMP' \
         -showdestinations
 
 lint:
@@ -47,7 +47,7 @@ build:
     set -o pipefail && \
     xcodebuild \
         -workspace iosApp/iosApp.xcworkspace \
-        -scheme KotlinMultipeer \
+        -scheme 'Ditto KMP' \
         -configuration Debug \
         -destination 'generic/platform=iOS Simulator' | xcbeautify
 

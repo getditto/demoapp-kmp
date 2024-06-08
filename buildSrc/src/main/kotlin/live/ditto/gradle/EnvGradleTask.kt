@@ -19,12 +19,13 @@ open class EnvGradleTask : DefaultTask() {
     @Input
     var className = "BuildConfig"
 
+    /** This will create a subdir tree under sourceDir. */
     @Input
-    var packageName = "live.ditto"
+    var packageName = "com.example"
 
     /** Output directory for the generated source code. */
     @OutputDirectory
-    var sourceDir: File = project.file("src/main/kotlin")
+    var sourceDir: File = project.file("src/commonMain/kotlin")
 
     /** Debug mode passed in from gradle. */
     @Input

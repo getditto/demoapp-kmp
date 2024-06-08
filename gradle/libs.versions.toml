@@ -84,6 +84,8 @@ androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-te
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 
+tiamat = { module = "io.github.composegears:tiamat", version = "1.1.0-rc01" }
+
 testing-concurrentunit = { module = "net.jodah:concurrentunit", version.ref = "concurrentunit" }
 testing-junit = { module = "junit:junit", version.ref = "junit" }
 testing-junit-ext = { module = "androidx.test.ext:junit", version.ref = "junit-extensions" }
