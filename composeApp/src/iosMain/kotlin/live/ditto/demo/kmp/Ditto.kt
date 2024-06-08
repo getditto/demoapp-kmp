@@ -116,12 +116,8 @@ actual open class Ditto actual constructor() {
             .findByID(DITDocumentID(DOCUMENT_ID))
             .updateWithBlock { doc ->
                 val doc = doc ?: throw Error("Null document in update block")
-//                val docPath = doc.objectForKeyedSubscript(squareIndex.toString())
-//                docPath.setValue(updatedColor)
-                doc.setValue(
-                    value = updatedColor,
-                    forKeyPath = squareIndex.toString(),
-                )
+                val docPath = doc.objectForKeyedSubscript(squareIndex.toString())
+                docPath.set(updatedColor)
             }
     }
 }
